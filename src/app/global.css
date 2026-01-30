@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+/* --- 1. BLACK LINK DESIGN SYSTEM (PH7 INTEGRATION) --- */
+@theme {
+  /* --- PALETA DE CORES (Tailwind v4 gera classes automáticas) --- */
+  
+  /* Base Noir */
+  --color-void: #030303;       /* PH7 Void (Levemente mais profundo que o anterior) */
+  --color-carbon: #0A0A0A;     /* Cinza Industrial */
+  
+  /* Palette PH7 */
+  --color-platinum: #E5E4E2;   /* O "Branco" metálico da LP */
+  --color-gold-dust: #C5A059;  /* O Dourado da LP */
+  
+  /* Legacy/Compatibilidade (Mapeados para a nova paleta) */
+  --color-lux: var(--color-platinum); 
+  --color-sub: #71717A;
+
+  /* Sistema Glassmorphism */
+  --color-glass-surface: rgba(255, 255, 255, 0.02);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
+  --color-glass-highlight: rgba(255, 255, 255, 0.15);
+
+  /* --- TIPOGRAFIA --- */
+  /* Agora font-sans é Manrope e font-serif é Cinzel */
+  --font-sans: var(--font-manrope), "Manrope", "Helvetica Neue", sans-serif;
+  --font-serif: var(--font-cinzel), "Cinzel", serif;
+  --font-mono: var(--font-geist-mono), "SF Mono", monospace;
+
+  /* --- ANIMAÇÕES --- */
+  --ease-expo-out: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-circ-out: cubic-bezier(0, 0.55, 0.45, 1);
+  
+  --animate-reveal: reveal 1.5s var(--ease-expo-out) forwards;
+  --animate-title-up: title-up 1.5s var(--ease-expo-out) forwards;
+
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes title-up {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+}
+
+/* --- 2. CORE PHYSICS & RESET --- */
+:root {
+  --foreground-rgb: 229, 228, 226; /* Platinum RGB */
+  --background-start-rgb: 3, 3, 3;
+}
+
+body {
+  background-color: var(--color-void);
+  color: var(--color-platinum);
+  font-family: var(--font-sans); /* Padrão: Manrope */
+  overflow-x: hidden;
+  
+  /* High Fidelity Text */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Seleção de Texto (Identidade PH7: Dourado com fundo Void) */
+::selection {
+  background-color: var(--color-gold-dust);
+  color: var(--color-void);
+  text-shadow: none;
+}
+
+/* Scrollbar Customizada */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-void); }
+::-webkit-scrollbar-thumb { background: var(--color-glass-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-gold-dust); } /* Hover Dourado */
+
+/* --- 3. UTILITIES & FX --- */
+
+/* Noise Texture */
+.bg-noise {
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  pointer-events: none; z-index: 50; opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Glass Panel */
+.glass-panel {
+  background: var(--color-glass-surface);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Hover Line Effect (Gold) */
+.hover-line { position: relative; text-decoration: none; }
+.hover-line::after {
+  content: ''; position: absolute; width: 100%; transform: scaleX(0);
+  height: 1px; bottom: -2px; left: 0;
+  background-color: var(--color-gold-dust); /* Linha Dourada */
+  transform-origin: bottom right;
+  transition: transform 0.4s var(--ease-expo-out);
+}
+.hover-line:hover::after { transform: scaleX(1); transform-origin: bottom left; }
+
+/* --- 4. LENIS --- */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-scrolling iframe { pointer-events: none; }

@@ -1,6 +1,7 @@
 const config = {
   plugins: {
-    "@tailwindcss/postcss": {},
+    // O plugin oficial do Tailwind v4 que substitui a configuração antiga
+    '@tailwindcss/postcss': {},
   },
 };
 
