@@ -49,10 +49,10 @@ export default function Home() {
   }, { scope: containerRef });
 
   return (
-    <div ref={containerRef} className="w-full overflow-hidden">
+    <div ref={containerRef} className="w-full overflow-hidden max-w-[1440px] mx-auto">
 
       {/* --- SEÇÃO 1: HERO / FLAGSHIP --- */}
-      <section className="relative flex flex-col items-center justify-center h-screen w-full z-10 px-4">
+      <section className="relative flex flex-col items-center justify-center h-screen w-full z-10 px-[clamp(1rem,5vw,6rem)]">
 
         {/* Camada de Conteúdo Principal */}
         <div className="relative z-20 text-center mix-blend-difference flex flex-col items-center">
@@ -60,7 +60,7 @@ export default function Home() {
           {/* TÍTULO MASSIVO */}
           <h1
             ref={titleRef}
-            className="relative z-10 mb-8 md:mb-12 text-[15vw] md:text-[14vw] font-serif font-bold leading-[0.9] tracking-tighter text-lux select-none uppercase"
+            className="relative z-20 mb-12 md:mb-16 text-[clamp(4rem,10vw,12rem)] font-serif font-bold leading-[0.9] tracking-tighter text-lux select-none uppercase"
           >
             BLACK LINK
           </h1>
@@ -68,19 +68,13 @@ export default function Home() {
           {/* SUBTÍTULO TÉCNICO (PILARES) */}
           <div
             ref={pillarsRef}
-            className="relative z-20 mt-4 md:mt-6 flex flex-col md:flex-row gap-4 md:gap-12 items-center justify-center opacity-0"
+            className="relative z-20 mt-4 flex flex-row flex-wrap gap-4 items-center justify-center text-[10px] tracking-[0.3em]"
           >
-            <span className="text-[10px] md:text-xs font-mono text-lux uppercase tracking-[0.2em]">
-              Design
-            </span>
-            <span className="hidden md:block w-1 h-1 bg-lux rounded-full opacity-50"></span>
-            <span className="text-[10px] md:text-xs font-mono text-lux uppercase tracking-[0.2em]">
-              Software
-            </span>
-            <span className="hidden md:block w-1 h-1 bg-lux rounded-full opacity-50"></span>
-            <span className="text-[10px] md:text-xs font-mono text-lux uppercase tracking-[0.2em]">
-              Estratégia
-            </span>
+            <span className="font-mono text-lux uppercase">Design</span>
+            <span className="w-1 h-1 bg-lux rounded-full opacity-50"></span>
+            <span className="font-mono text-lux uppercase">Software</span>
+            <span className="w-1 h-1 bg-lux rounded-full opacity-50"></span>
+            <span className="font-mono text-lux uppercase">Estratégia</span>
           </div>
 
         </div>
@@ -88,9 +82,9 @@ export default function Home() {
         {/* INDICADOR DE SCROLL */}
         <div
           ref={scrollRef}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 mix-blend-difference opacity-0"
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 mix-blend-difference opacity-50 transition-opacity duration-500"
         >
-          <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-lux">
+          <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-lux opacity-50">
             Role com elegância
           </span>
           <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-lux to-transparent"></div>

@@ -22,7 +22,7 @@ export default function LayoutClient({ children }: LayoutClientProps) {
 
       <SmoothScroll>
         <Navbar isOpen={menuOpen} setIsOpen={setMenuOpen} />
-        <main className="relative z-10 w-full min-h-screen flex flex-col">
+        <main className="relative z-10 w-full min-h-screen flex flex-col max-w-[1440px] mx-auto">
           {children}
         </main>
       </SmoothScroll>
