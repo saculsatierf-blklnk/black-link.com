@@ -1,15 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { createPortal } from "react-dom";
 
-export function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+interface NavbarProps {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export function Navbar({ isOpen, setIsOpen }: NavbarProps) {
+  // menu open state now controlled by parent to avoid unnecessary re-renders
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
-  
   const isImmersivePage = pathname === "/ph7" || pathname === "/brga";
 
   useEffect(() => { setMounted(true); }, []);
@@ -18,7 +22,7 @@ export function Navbar() {
     document.body.style.overflow = isOpen ? "hidden" : "auto";
   }, [isOpen]);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleMenu = () => setIsOpen((o) => !o);
 
   if (isImmersivePage) return null;
 
@@ -26,12 +30,12 @@ export function Navbar() {
     <>
       <nav className="fixed top-0 left-0 w-full z-[50] px-6 py-6 md:px-12 md:py-8 flex justify-between items-center mix-blend-difference text-white pointer-events-none">
         <Link href="/" className="pointer-events-auto group">
-          <span className="font-serif text-xl md:text-2xl font-bold tracking-tighter hover:opacity-70 transition-opacity text-white">
-            BLACK LINK.
+          <span className="font-sans text-xl md:text-2xl font-medium tracking-tight hover:opacity-70 transition-opacity text-white">
+            BLACK LINK
           </span>
         </Link>
 
-        <button 
+        <button
           onClick={toggleMenu}
           className="pointer-events-auto flex flex-col gap-[6px] group p-2 hover:opacity-80 transition-opacity z-[60]"
         >
@@ -42,15 +46,14 @@ export function Navbar() {
       </nav>
 
       {mounted && createPortal(
-        <div 
-          className={`fixed inset-0 z-[99999] bg-[#050505] transition-all duration-700 ease-[cubic-bezier(0.87,0,0.13,1)] ${
-            isOpen ? "opacity-100 visible clip-path-open" : "opacity-0 invisible pointer-events-none"
-          }`}
+        <div
+          className={`fixed inset-0 z-[99999] bg-[#050505] transition-all duration-700 ease-[cubic-bezier(0.87,0,0.13,1)] ${isOpen ? "opacity-100 visible clip-path-open" : "opacity-0 invisible pointer-events-none"
+            }`}
         >
           <div className="relative w-full h-full flex flex-col justify-between p-6 md:p-12">
-            
+
             <div className="flex justify-end">
-              <button 
+              <button
                 onClick={toggleMenu}
                 className="group flex items-center gap-2 font-mono text-[10px] md:text-xs text-white/40 hover:text-white transition-colors uppercase tracking-widest mt-2"
               >
@@ -66,13 +69,13 @@ export function Navbar() {
               <div className="w-[1px] h-8 md:h-12 bg-gradient-to-b from-transparent via-white/20 to-transparent my-2 md:my-4" />
 
               <div className="text-center mb-2 md:mb-4">
-                 <p className="font-sans text-[8px] md:text-[10px] uppercase tracking-[0.4em] text-[#C5A059] font-bold opacity-80 mb-2">
-                    Acesso Restrito
-                 </p>
+                <p className="font-sans text-[8px] md:text-[10px] uppercase tracking-[0.4em] text-[#C5A059] font-bold opacity-80 mb-2">
+                  Acesso Restrito
+                </p>
               </div>
 
-              <MenuLink href="/ph7" label="PH7 [Launch]" index="03" onClick={toggleMenu} highlight />
-              <MenuLink href="/brga" label="BRGA [Lock]" index="04" onClick={toggleMenu} highlight />
+              <MenuLink href="/ph7" label="PH7 (MC/CANTOR)" index="03" onClick={toggleMenu} highlight />
+              <MenuLink href="/brga" label="PROD. ODÉ" index="04" onClick={toggleMenu} highlight />
 
               <div className="w-[1px] h-8 md:h-12 bg-gradient-to-b from-transparent via-white/20 to-transparent my-2 md:my-4" />
 
@@ -89,7 +92,7 @@ export function Navbar() {
                 </p>
               </div>
               <div className="hidden md:block">
-                 <p className="font-sans text-[10px] uppercase tracking-widest text-white/30">V. 2.0</p>
+                <p className="font-sans text-[10px] uppercase tracking-widest text-white/30">V. 2.0</p>
               </div>
             </div>
 
@@ -103,8 +106,8 @@ export function Navbar() {
 
 function MenuLink({ href, label, index, onClick, highlight = false }: any) {
   return (
-    <Link 
-      href={href} 
+    <Link
+      href={href}
       onClick={onClick}
       className="group relative flex items-center justify-center p-2 overflow-hidden w-full"
     >
@@ -113,12 +116,11 @@ function MenuLink({ href, label, index, onClick, highlight = false }: any) {
           {index}
         </span>
         {/* MOBILE: text-3xl | DESKTOP: text-6xl/7xl */}
-        <span 
-          className={`font-serif text-3xl md:text-6xl lg:text-7xl uppercase tracking-tighter transition-all duration-500 text-center ${
-            highlight 
-              ? "text-white group-hover:text-[#C5A059] group-hover:italic" 
-              : "text-zinc-500 group-hover:text-white"
-          }`}
+        <span
+          className={`font-serif text-3xl md:text-6xl lg:text-7xl uppercase tracking-tighter transition-all duration-500 text-center ${highlight
+            ? "text-white group-hover:text-[#C5A059] group-hover:italic"
+            : "text-zinc-500 group-hover:text-white"
+            }`}
         >
           {label}
         </span>

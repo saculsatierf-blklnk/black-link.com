@@ -81,8 +81,8 @@ export function Footer() {
                ref={buttonRef}
                className="relative h-40 w-40 md:h-48 md:w-48 rounded-full bg-white text-black flex items-center justify-center hover:bg-zinc-200 transition-colors cursor-pointer"
              >
-               <span ref={textRef} className="text-xs md:text-sm font-bold font-mono uppercase tracking-widest text-center leading-tight">
-                 Iniciar<br/>Projeto
+               <span ref={textRef} className="text-[18px] md:text-[24px] font-light font-serif uppercase tracking-widest text-center leading-tight whitespace-normal">
+                 INICIAR PROJETO
                </span>
              </button>
            </Link>

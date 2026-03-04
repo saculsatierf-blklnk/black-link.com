@@ -24,6 +24,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       smoothWheel: true,
       touchMultiplier: 2, // Responsividade tátil no mobile
       infinite: false,
+      autoRaf: false, // Desativa o loop automático para atrelar exclusivamente ao GSAP
     });
 
     lenisRef.current = lenis;
@@ -34,9 +35,10 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
 
     // Integra o loop do Lenis ao ticker do GSAP (Heartbeat da aplicação)
     // Isso garante que Scroll e Animações rodem no mesmo ciclo de renderização (evita jitter)
-    gsap.ticker.add((time) => {
+    function onTicker(time: number) {
       lenis.raf(time * 1000);
-    });
+    }
+    gsap.ticker.add(onTicker);
 
     // Desativa o lag smoothing do GSAP para evitar "pulos" visuais ao scrolar rápido
     // Em interfaces imersivas, a precisão posicional é mais importante que a suavização de lag
@@ -44,13 +46,13 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
 
     // --- CLEANUP ---
     return () => {
-      gsap.ticker.remove(lenis.raf);
+      gsap.ticker.remove(onTicker);
       lenis.destroy();
     };
   }, []);
 
   return (
-    <div className="w-full min-h-screen will-change-transform">
+    <div className="w-full min-h-screen md:will-change-transform">
       {children}
     </div>
   );

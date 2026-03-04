@@ -212,7 +212,7 @@ export default function PH7Page() {
             <path d="M19 12H5"></path>
         </svg>
         <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-platinum group-hover:text-gold-dust font-bold relative z-10 transition-colors">
-          System Return
+          VOLTAR
         </span>
       </Link>
 
@@ -232,8 +232,8 @@ export default function PH7Page() {
 
       {/* UI: LAUNCH PROTOCOL */}
       <nav className="fixed w-full z-50 px-8 py-8 flex justify-end items-center mix-blend-exclusion pointer-events-none">
-        <a href="https://www.instagram.com/blacklink.co" target="_blank" className="text-[10px] uppercase tracking-[0.3em] font-sans border border-white/20 px-6 py-3 rounded-full hover:bg-gold-dust hover:text-void transition-all duration-500 pointer-events-auto cursor-none magnetic-trigger">
-            Launch Protocol
+        <a href="https://open.spotify.com/track/1ZFlZMhBWuO7agS3lgDsYU?si=nX3cl1dnQI2K07NhHQ66ew" target="_blank" className="text-[10px] uppercase tracking-[0.3em] font-sans border border-white/20 px-6 py-3 rounded-full hover:bg-gold-dust hover:text-void transition-all duration-500 pointer-events-auto cursor-none magnetic-trigger">
+            OUVIR AGORA
         </a>
       </nav>
 
@@ -259,7 +259,7 @@ export default function PH7Page() {
           </div>
           <div className="overflow-hidden mb-4">
             <p className="animate-text-reveal font-sans text-gold-dust text-[10px] uppercase tracking-[0.6em] font-bold">
-              PRE_SAVE :: NOW
+              LANÇAMENTO OFICIAL
             </p>
           </div>
           <h1 className="font-serif text-[15vw] leading-[0.8] text-platinum mix-blend-overlay uppercase tracking-tighter">
@@ -290,7 +290,6 @@ export default function PH7Page() {
         </div>
         <div className="relative z-10 text-center mix-blend-overlay">
           <h2 className="font-serif text-[10vw] text-platinum leading-none tracking-tighter skew-elem">ATMOSFERA</h2>
-          <p className="font-sans text-xs text-gold-dust uppercase tracking-[1em] mt-4 font-bold">Raw_Material_01</p>
         </div>
       </section>
 
@@ -308,14 +307,14 @@ export default function PH7Page() {
         </div>
         
         <div className="relative z-10 text-center">
-          <a href="https://distrokid.com/hyperfollow/ph72/ph-vz1-feat-kauan-costa" target="_blank" className="magnetic-trigger group relative flex flex-col items-center justify-center p-12 md:p-24 transition-transform hover:scale-105 cursor-none">
+          <a href="https://open.spotify.com/track/1ZFlZMhBWuO7agS3lgDsYU?si=nX3cl1dnQI2K07NhHQ66ew" target="_blank" className="magnetic-trigger group relative flex flex-col items-center justify-center p-12 md:p-24 transition-transform hover:scale-105 cursor-none">
             <div className="absolute inset-0 bg-gold-dust blur-[100px] opacity-0 group-hover:opacity-30 transition-opacity duration-700 rounded-full" />
             <h2 className="font-serif text-[12vw] leading-none text-platinum group-hover:text-gold-dust transition-colors duration-500 mix-blend-overlay">
               PRE-SAVE
             </h2>
             <div className="mt-10 flex items-center gap-3 border border-white/30 px-8 py-3 rounded-full group-hover:bg-gold-dust group-hover:border-gold-dust group-hover:text-void transition-all duration-500 bg-black/50 backdrop-blur-md">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-              <span className="text-xs uppercase tracking-widest font-sans font-bold">Acessar Distrokid</span>
+              <span className="text-xs uppercase tracking-widest font-sans font-bold">OUVIR NO SPOTIFY</span>
             </div>
           </a>
         </div>
@@ -329,7 +328,7 @@ export default function PH7Page() {
           </video>
         </div>
         <div className="relative z-10 text-center">
-          <h2 className="font-serif text-[8vw] text-transparent leading-none tracking-tighter skew-elem" style={{ WebkitTextStroke: "1px #E5E4E2" }}>
+          <h2 className="font-serif text-[10vw] text-platinum leading-none tracking-tighter skew-elem">
             POTÊNCIA
           </h2>
         </div>

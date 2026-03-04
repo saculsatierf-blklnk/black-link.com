@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
-// 1. FONTES PH7 (Substituindo Geist)
 import { Cinzel, Manrope, Geist_Mono } from "next/font/google"; 
-import { SmoothScroll } from "@/components/providers/smooth-scroll";
-import GlobalCanvas from "@/components/providers/canvas/scene";
-import { Navbar } from "@/components/ui/navbar";
-import { Preloader } from "@/components/ui/preloader";
+import LayoutClient from "@/components/ui/layout-client";
+
+// 1. CORREÇÃO DA IMPORTAÇÃO (Sem chaves)
+import Preloader from "@/components/ui/preloader";
 import { GrainOverlay } from "@/components/ui/grain-overlay";
-// 2. IMPORTANTE: Caminho correto para seu CSS (ajuste se necessário)
+
+// 2. INJEÇÃO DO PROVEDOR DE ESTADO
+import { EngineProvider } from "@/components/providers/engine-provider";
+
 import "./global.css"; 
 
-// --- CONFIGURAÇÃO DE TIPOGRAFIA ---
-
-// SERIF: Cinzel (Para Títulos / Impacto / "Soberania")
 const cinzel = Cinzel({
   subsets: ["latin"],
   weight: ["400", "700"], 
@@ -19,7 +18,6 @@ const cinzel = Cinzel({
   display: "swap",
 });
 
-// SANS: Manrope (Para Textos / UI / Leitura Técnica)
 const manrope = Manrope({
   subsets: ["latin"],
   weight: ["200", "300", "400", "700"], 
@@ -27,7 +25,6 @@ const manrope = Manrope({
   display: "swap",
 });
 
-// MONO: Mantido para pequenos detalhes técnicos se precisar
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
@@ -55,25 +52,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en" className="lenis">
       <body
-        // 3. INJEÇÃO DE VARIÁVEIS E CLASSES GLOBAIS
-        // font-sans: define Manrope como padrão
-        // text-platinum: define a cor padrão do texto
-        // bg-void: define o fundo preto PH7
         className={`${manrope.variable} ${cinzel.variable} ${geistMono.variable} font-sans antialiased bg-void text-platinum selection:bg-gold-dust selection:text-void overflow-x-hidden`}
       >
-        <Preloader />
-        <GrainOverlay />
-        <GlobalCanvas />
-        
-        <SmoothScroll>
-          <Navbar />
-          <main className="relative z-10 w-full min-h-screen flex flex-col">
-            {children}
-          </main>
-        </SmoothScroll>
+        {/* 3. ENVELOPAMENTO DA ÁRVORE DE RENDERIZAÇÃO */}
+        <EngineProvider>
+          <LayoutClient>
+              {children}
+          </LayoutClient>
+        </EngineProvider>
       </body>
     </html>
   );

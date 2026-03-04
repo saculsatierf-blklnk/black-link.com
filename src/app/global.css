@@ -110,3 +110,17 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 .lenis.lenis-stopped { overflow: hidden; }
 .lenis.lenis-scrolling iframe { pointer-events: none; }
+
+/* --- 5. TIPOGRAFIA REPAGINADA --- */
+
+/* Principais títulos recebem serif elegante com espaçamento ampliado */
+h1,
+h2 {
+  @apply font-serif tracking-[0.05em]; /* ~5% letter-spacing */
+}
+
+/* Textos de apoio / descrições para hierarquia visual */
+.support-text,
+.description {
+  @apply font-sans text-sm text-zinc-400;
+}
