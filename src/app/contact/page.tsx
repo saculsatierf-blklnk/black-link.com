@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+// @ts-ignore
+import { Instagram, Mail, Phone } from "lucide-react";
 
 // Registra o plugin para evitar erros de animação
 if (typeof window !== "undefined") {
@@ -71,11 +73,7 @@ export default function ContactPage() {
     setStatus("sending");
 
     // Formata mensagem para WhatsApp
-    const message = `*NOVO LEAD VIA SITE (BLACK LINK)*%0A%0A` +
-      `*Nome:* ${formData.name}%0A` +
-      `*Email:* ${formData.email}%0A` +
-      `*Interesse:* ${formData.service || "Não especificado"}%0A` +
-      `*Detalhes:* ${formData.details}`;
+    const message = `Olá+Lucas,+meu+nome+é+${encodeURIComponent(formData.name)}.+E-mail:+${encodeURIComponent(formData.email)}.+Tenho+interesse+em:+${encodeURIComponent(formData.service || "Não especificado")}.+Sobre+o+projeto:+${encodeURIComponent(formData.details)}`;
 
     const whatsappUrl = `https://wa.me/5511978291846?text=${message}`;
 
@@ -88,6 +86,10 @@ export default function ContactPage() {
 
   return (
     <main ref={containerRef} className="relative w-full min-h-screen bg-black text-white px-6 md:px-24 py-32 flex flex-col justify-between selection:bg-white selection:text-black">
+      
+      {/* Section Principal com Contenção */}
+      <section className="min-h-screen flex items-center py-20">
+        <div className="max-w-7xl mx-auto w-full">
       
       {/* Header */}
       <div className="w-full flex flex-col md:flex-row justify-between items-start md:items-end mb-24 border-b border-white/10 pb-8 reveal-text">
@@ -121,31 +123,40 @@ export default function ContactPage() {
             >
               +55 11 97829-1846
             </a>
+            <div className="mt-4 flex flex-col gap-3 pl-4 border-l border-white/20 backdrop-blur-sm">
+              <a 
+                href="mailto:contato@blklnk.com"
+                className="flex items-center gap-2 text-lg text-[#E0E0E0] hover:text-white transition-all duration-300 ease-in-out"
+              >
+                <Mail size={18} />
+                contato@blklnk.com
+              </a>
+              <a 
+                href="https://www.instagram.com/blacklink.com.br/" 
+                target="_blank"
+                className="flex items-center gap-2 text-lg text-[#E0E0E0] hover:text-white transition-all duration-300 ease-in-out"
+              >
+                <Instagram size={18} />
+                @blacklink.com.br
+              </a>
+              <a 
+                href="tel:+5511978291846"
+                className="flex items-center gap-2 text-lg text-[#E0E0E0] hover:text-white transition-all duration-300 ease-in-out"
+              >
+                <Phone size={18} />
+                +55 11 97829-1846
+              </a>
+            </div>
           </div>
 
           <div>
              <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-600 mb-2 block">
               Base de Operações
             </span>
-            <p className="text-xl text-zinc-300 font-light">
+            <p className="text-xl text-zinc-300 font-extralight">
               São Paulo, SP — Brasil<br/>
               Atuação Global (Remoto)
             </p>
-          </div>
-
-          <div>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-600 mb-4 block">
-              Conexões
-            </span>
-            <div className="flex flex-col gap-2">
-              <a 
-                href="https://www.instagram.com/blacklink.com.br/" 
-                target="_blank"
-                className="text-lg text-white hover:text-zinc-400 transition-colors w-fit"
-              >
-                → Instagram Oficial
-              </a>
-            </div>
           </div>
         </div>
 
@@ -162,7 +173,7 @@ export default function ContactPage() {
               onChange={handleChange}
               type="text" 
               placeholder="Como devemos lhe chamar?"
-              className="w-full bg-transparent border-b border-white/20 py-4 text-xl text-white placeholder-zinc-700 focus:outline-none focus:border-white transition-all rounded-none"
+              className="w-full bg-white/[0.02] border-b border-white/20 py-4 px-4 text-xl text-white placeholder-zinc-700 focus:outline-none focus:border-white/40 focus:bg-white/[0.05] transition-all rounded-none"
               required
             />
           </div>
@@ -177,7 +188,11 @@ export default function ContactPage() {
               onChange={handleChange}
               type="email" 
               placeholder="seu@email.com"
-              className="w-full bg-transparent border-b border-white/20 py-4 text-xl text-white placeholder-zinc-700 focus:outline-none focus:border-white transition-all rounded-none"
+              className="w-full bg-white/[0.02] border-b border-white/20 py-4 px-4 text-xl text-white placeholder-zinc-700 focus:outline-none focus:border-white/40 focus:bg-white/[0.05] transition-all rounded-none autofill:bg-transparent autofill:text-white"
+              style={{
+                WebkitBoxShadow: '0 0 0px 1000px transparent inset',
+                WebkitTextFillColor: 'white'
+              }}
               required
             />
           </div>
@@ -191,7 +206,7 @@ export default function ContactPage() {
               <button
                 type="button"
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className={`w-full text-left bg-transparent border-b py-4 text-xl transition-all rounded-none flex justify-between items-center ${isDropdownOpen ? 'border-white text-white' : 'border-white/20 text-white'}`}
+                className={`w-full text-left bg-white/[0.02] border-b py-4 px-4 text-xl transition-all rounded-none flex justify-between items-center ${isDropdownOpen ? 'border-white/40 bg-white/[0.05] text-white' : 'border-white/20 text-white'}`}
               >
                 <span className={formData.service ? "text-white" : "text-zinc-700"}>
                   {formData.service || "Selecione..."}
@@ -203,7 +218,7 @@ export default function ContactPage() {
 
               {/* Lista do Dropdown */}
               <div 
-                className={`absolute top-full left-0 w-full bg-[#0a0a0a] border border-white/10 shadow-2xl z-50 overflow-hidden transition-all duration-300 origin-top ${isDropdownOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'}`}
+                className={`absolute top-full left-0 w-full bg-black/80 backdrop-blur-xl border border-white/10 shadow-2xl z-[100] overflow-hidden transition-all duration-300 origin-top ${isDropdownOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'}`}
               >
                 {SERVICE_OPTIONS.map((option) => (
                   <div
@@ -227,7 +242,7 @@ export default function ContactPage() {
               onChange={handleChange}
               rows={4}
               placeholder="Conte brevemente sobre seus objetivos..."
-              className="w-full bg-transparent border-b border-white/20 py-4 text-xl text-white placeholder-zinc-700 focus:outline-none focus:border-white transition-all resize-none rounded-none"
+              className="w-full bg-white/[0.02] border-b border-white/20 py-4 px-4 text-xl text-white placeholder-zinc-700 focus:outline-none focus:border-white/40 focus:bg-white/[0.05] transition-all resize-none rounded-none"
             />
           </div>
 
@@ -236,10 +251,10 @@ export default function ContactPage() {
             <button 
                 type="submit"
                 disabled={status !== "idle"}
-                className="group relative px-8 py-5 bg-white text-black font-bold uppercase tracking-widest text-xs overflow-hidden w-full md:w-auto transition-all hover:bg-zinc-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="group relative px-8 py-5 bg-black text-white font-bold uppercase tracking-widest text-xs border border-white/20 w-full md:w-auto transition-all hover:bg-white hover:text-black hover:border-white hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-1000 before:ease-out"
             >
                 <span className="relative z-10">
-                    {status === "idle" && "Enviar via WhatsApp →"}
+                    {status === "idle" && "ENVIAR VIA WHATSAPP"}
                     {status === "sending" && "Redirecionando..."}
                     {status === "success" && "Aberto no WhatsApp ✓"}
                 </span>
@@ -259,6 +274,9 @@ export default function ContactPage() {
         </div>
         <span className="font-mono text-[10px]">ALL RIGHTS RESERVED.</span>
       </div>
+
+        </div>
+      </section>
 
     </main>
   );

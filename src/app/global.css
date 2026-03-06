@@ -119,6 +119,8 @@ h2 {
   @apply font-serif tracking-[0.05em]; /* ~5% letter-spacing */
 }
 
+/* Menu Links Hover Effect - Deprecated */
+
 /* Textos de apoio / descrições para hierarquia visual */
 .support-text,
 .description {
