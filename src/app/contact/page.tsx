@@ -37,6 +37,7 @@ export default function ContactPage() {
   const [status, setStatus] = useState<"idle" | "sending" | "success">("idle");
 
   useGSAP(() => {
+    return; // EMERGÊNCIA: Bypassing GSAP
     // Animação de Entrada
     gsap.from(".reveal-text", {
       y: 50,
@@ -123,7 +124,7 @@ export default function ContactPage() {
             >
               +55 11 97829-1846
             </a>
-            <div className="mt-4 flex flex-col gap-3 pl-4 border-l border-white/20 backdrop-blur-sm">
+            <div className="mt-4 flex flex-col gap-3 pl-4 border-l border-white/20">
               <a 
                 href="mailto:contato@blklnk.com"
                 className="flex items-center gap-2 text-lg text-[#E0E0E0] hover:text-white transition-all duration-300 ease-in-out"
@@ -218,7 +219,7 @@ export default function ContactPage() {
 
               {/* Lista do Dropdown */}
               <div 
-                className={`absolute top-full left-0 w-full bg-black/80 backdrop-blur-xl border border-white/10 shadow-2xl z-[100] overflow-hidden transition-all duration-300 origin-top ${isDropdownOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'}`}
+                className={`absolute top-full left-0 w-full bg-[#0a0a0a]/95 border border-white/10 shadow-2xl z-[100] overflow-hidden transition-all duration-300 origin-top transform-gpu ${isDropdownOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'}`}
               >
                 {SERVICE_OPTIONS.map((option) => (
                   <div

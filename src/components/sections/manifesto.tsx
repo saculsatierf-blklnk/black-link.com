@@ -2,49 +2,11 @@
 
 import { useRef } from "react";
 import { TextReveal } from "@/components/ui/text-reveal";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export function Manifesto() {
   const containerRef = useRef<HTMLElement>(null);
 
-  useGSAP(() => {
-    // animação só para desktop; mobile não precisa do trigger
-    const mm = gsap.matchMedia();
-    mm.add("(min-width: 768px)", () => {
-      const dotsAnim = gsap.fromTo(".status-dot",
-        { opacity: 0.2, scale: 0.8 },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 0.5,
-          stagger: { each: 0.1, repeat: -1, yoyo: true },
-          ease: "power1.inOut",
-          paused: true
-        }
-      );
 
-      const st = ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: "top bottom",
-        end: "bottom top",
-        onEnter: () => dotsAnim.play(),
-        onLeave: () => dotsAnim.pause(),
-        onEnterBack: () => dotsAnim.play(),
-        onLeaveBack: () => dotsAnim.pause()
-      });
-
-      return () => {
-        dotsAnim.kill();
-        st.kill();
-      };
-    });
-
-    return () => mm.revert();
-  }, { scope: containerRef });
 
   return (
     <section ref={containerRef} className="relative min-h-[80vh] w-full flex flex-col items-center justify-center px-6 py-32 md:px-24 bg-black/90">

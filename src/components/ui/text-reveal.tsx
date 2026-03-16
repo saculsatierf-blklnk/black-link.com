@@ -21,6 +21,8 @@ export function TextReveal({ children, className }: TextRevealProps) {
   const words = children.split(" ");
 
   useGSAP(() => {
+    return; // EMERGÊNCIA: Bypassing GSAP
+    
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: container.current,
@@ -30,6 +32,9 @@ export function TextReveal({ children, className }: TextRevealProps) {
         // Isso força o usuário a scrolar para ler, criando engajamento físico
         end: "bottom 45%", 
         scrub: 1, // Suavidade de 1s para o scrub (efeito manteiga)
+        fastScrollEnd: true,
+        preventOverlaps: true,
+        invalidateOnRefresh: true,
       },
     });
 

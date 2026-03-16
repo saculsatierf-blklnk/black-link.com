@@ -14,7 +14,7 @@ const pillars = [
       { label: "DIINC SP", url: "https://diinc.com.br/" },
       { label: "Gofer Metais", url: "https://www.instagram.com/gofer_metais/" }
     ],
-    image: "/assets/works/branding.jpg",
+    image: "/assets/works/branding.webp",
     whatsappMsg: "Olá, tenho interesse em Branding e Design de Autoridade."
   },
   {
@@ -28,7 +28,7 @@ const pillars = [
       // Nova prova requisitada pelo time de UX
       { label: "DIINC SP", url: "https://www.instagram.com/diinc_sp" }
     ],
-    image: "/assets/works/trafego.jpg",
+    image: "/assets/works/trafego.webp",
     whatsappMsg: "Olá, gostaria de falar sobre Gestão de Tráfego e Performance."
   },
   {
@@ -39,11 +39,9 @@ const pillars = [
     description: "Desenvolvemos ecossistemas web, aplicativos Android/iOS e automações de processo. Entregamos código escalável e arquitetura robusta para que sua operação rode 24/7 à prova de falhas.",
     proofs: [
       { label: "Gofer Metais", url: "https://gofermetais.com.br/" },
-      { label: "David HBS Viagens", url: "https://davidhbsviagens.com/" },
-      // link extra acrescentado pelo briefing
       { label: "DIINC SP", url: "https://diinc.com.br/" }
     ],
-    image: "/assets/works/software.jpg",
+    image: "/assets/works/software.webp",
     whatsappMsg: "Olá, preciso desenvolver um Software, App ou Automação."
   }
 ];
@@ -61,18 +59,21 @@ export function SelectedWorks() {
             className="relative w-full h-auto flex items-center justify-center px-4 md:px-12"
           >
             {/* CARD CONTAINER */}
-            <div className="relative w-full h-auto md:min-h-[85vh] border border-white/10 overflow-hidden shadow-2xl group bg-black md:bg-[#0a0a0a]">
+            <div className="relative w-full h-auto md:min-h-[85vh] border border-white/10 overflow-hidden shadow-2xl group bg-black md:bg-[#0a0a0a] transform-gpu will-change-transform">
 
               {/* CAMADA 1: IMAGEM BACKGROUND */}
               <div className="absolute inset-0 z-0 w-full h-full bg-black">
-                <Image
-                  src={pillar.image}
-                  alt={pillar.title}
-                  fill
-                  sizes="100vw"
-                  className="object-cover opacity-40 md:opacity-60 md:group-hover:opacity-80 md:group-hover:scale-105 transition-all duration-700 ease-out md:grayscale md:group-hover:grayscale-0"
-                  priority
-                />
+                  <Image
+                    src={pillar.image}
+                    alt={pillar.title}
+                    fill
+                    sizes="100vw"
+                    className="object-cover opacity-40 md:opacity-60 md:group-hover:opacity-80 md:group-hover:scale-105 transition-all duration-700 ease-out md:grayscale md:group-hover:grayscale-0"
+                    priority={index === 0}
+                    loading={index === 0 ? undefined : "lazy"}
+                    placeholder="blur"
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+                  />
                 {/* GRADIENTE ESTRATÉGICO */}
                 <div className="hidden md:block absolute inset-0 to-transparent opacity-100 bg-gradient-to-r from-black via-black/90" />
               </div>
@@ -96,7 +97,7 @@ export function SelectedWorks() {
                 {/* Footer do Card */}
                 <div className="flex flex-col gap-8 md:gap-12">
                   <div className="flex flex-col gap-3">
-                    <span className="font-sans text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Cases & Projetos</span>
+                    <span className="font-sans text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Cases & Ecossistema</span>
                     {pillar.proofs.map((proof, i) => (
                       <a key={i} href={proof.url} target="_blank" rel="noopener noreferrer" className="text-sm font-sans font-bold text-white hover:text-zinc-300 transition-colors flex items-center gap-2 w-fit pointer-events-auto">
                         → {proof.label}

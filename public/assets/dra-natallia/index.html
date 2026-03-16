@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Psicologia Clínica Online. Um espaço de escuta e acolhimento com Dra. Natállia Carreiro.">
+    <title>Dra. Natállia Carreiro | Santuário Digital | CRP 06/224488</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'nude-soft': '#F5F2ED',
+                        'deep-clay': '#4A2C2A', 
+                        'dusty-rose': '#D8A7B1',
+                    },
+                    fontFamily: {
+                        'serif': ['"Cormorant Garamond"', 'serif'],
+                        'sans': ['"Inter"', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* --- CORE STYLES --- */
+        body { 
+            background-color: #F5F2ED; 
+            color: #4A2C2A; 
+            overflow-x: hidden; 
+            -webkit-font-smoothing: antialiased; 
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        ::-webkit-scrollbar { width: 0px; display: none; }
+        
+        .hardware-accel {
+            will-change: transform, opacity;
+            transform: translateZ(0);
+        }
+
+        /* --- CURSOR (DESKTOP ONLY) --- */
+        @media (hover: hover) and (pointer: fine) {
+            .cursor-main { width: 8px; height: 8px; background: #D8A7B1; border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; top:0; left:0; transform: translate(-50%, -50%); }
+            .cursor-follower { width: 40px; height: 40px; border: 1px solid rgba(216, 167, 177, 0.3); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; top:0; left:0; transform: translate(-50%, -50%); }
+        }
+        @media (hover: none) {
+            .cursor-main, .cursor-follower { display: none !important; }
+        }
+
+        /* --- DIVA MASK (DESKTOP ONLY) --- */
+        /* Só aplica o fade na base da imagem no desktop para suavizar o corte */
+        @media (min-width: 768px) {
+            .diva-mask {
+                -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 98%);
+                mask-image: linear-gradient(to bottom, black 70%, transparent 98%);
+            }
+        }
+
+        .img-cover-position {
+            width: 100%;
+            height: 100%;
+            -o-object-fit: cover;
+               object-fit: cover;
+            -o-object-position: center 20%;
+               object-position: center 20%; 
+            filter: sepia(0.25) brightness(1.05) saturate(1.15) contrast(0.95);
+        }
+
+        /* --- PRELOADER --- */
+        #preloader { position: fixed; inset: 0; background-color: #F5F2ED; z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .preloader-msg { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: #D8A7B1; font-style: italic; font-weight: 300; text-align: center; }
+
+        /* --- UTILS --- */
+        .reveal-type { opacity: 0; filter: blur(10px); transform: translateY(20px); will-change: transform, opacity, filter; }
+        
+        html.lenis { height: auto; }
+        .lenis-smooth { scroll-behavior: auto; }
+    </style>
+</head>
+
+<body class="selection:bg-dusty-rose selection:text-white">
+
+    <audio id="healing-audio" loop preload="auto">
+        <source src="assets/healing-432hz.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="preloader" class="px-6 hardware-accel">
+        <div class="preloader-msg mb-8">Deixe o mundo lá fora...</div>
+        <div class="w-12 h-px bg-dusty-rose/30 animate-pulse"></div>
+        <button id="skip-preloader" class="fixed bottom-12 p-8 -m-8 font-sans text-[10px] tracking-[0.4em] uppercase text-deep-clay/40 hover:text-dusty-rose transition-colors duration-500 cursor-pointer">
+            [ Pular para o Santuário ]
+        </button>
+    </div>
+
+    <div class="cursor-main"></div>
+    <div class="cursor-follower"></div>
+
+    <nav class="fixed w-full z-50 px-6 py-6 md:py-8 md:px-20 flex justify-between items-center bg-nude-soft/95 backdrop-blur-sm transition-all duration-500">
+        <div class="flex flex-col">
+            <a href="#" class="font-serif text-2xl md:text-3xl italic tracking-tighter text-deep-clay leading-none">Natállia Carreiro</a>
+            <span class="font-sans text-[7px] md:text-[8px] tracking-[0.3em] uppercase opacity-60 mt-2 font-semibold text-deep-clay">Psicologia Clínica • Online</span>
+        </div>
+        <div class="hidden md:flex gap-16 text-[10px] uppercase tracking-[0.6em] font-sans font-medium text-deep-clay/70">
+            <a href="#escuta" class="hover:text-dusty-rose transition-colors">A Escuta</a>
+            <a href="#caminhos" class="hover:text-dusty-rose transition-colors">Caminhos</a>
+            <a href="https://wa.me/5511951326891" target="_blank" class="text-dusty-rose border-b border-dusty-rose/20 pb-1">Estou aqui</a>
+        </div>
+    </nav>
+
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
+
+            <section class="relative w-full bg-nude-soft pt-28 md:pt-0 overflow-hidden min-h-screen flex flex-col md:grid md:grid-cols-12 md:items-center">
+                
+                <div class="order-1 relative z-20 w-full md:col-span-6 lg:col-span-6 flex flex-col justify-center px-6 md:pl-20 pb-10 md:pb-0">
+                    
+                    <div class="badge-reveal opacity-0 -translate-y-4 mb-6 md:mb-8">
+                        <span class="font-sans text-[10px] md:text-[12px] tracking-[0.25em] uppercase text-dusty-rose font-semibold border-l border-dusty-rose/30 pl-4 block">
+                            Dra. Natállia Carreiro • CRP 06/224488
+                        </span>
+                    </div>
+
+                    <h1 class="hero-title font-serif text-4xl sm:text-5xl md:text-[5vw] lg:text-[5.5vw] leading-[1.1] text-deep-clay tracking-tight mb-6 md:mb-8">
+                        <span class="block italic font-light opacity-0 translate-y-8 hero-reveal">Existe um lugar onde</span>
+                        <span class="block italic font-light opacity-0 translate-y-8 hero-reveal delay-200 text-dusty-rose">você não precisa ser forte.</span>
+                    </h1>
+
+                    <p class="hero-subtitle font-sans text-deep-clay/80 text-sm md:text-xl font-light leading-relaxed max-w-lg opacity-0 hero-reveal delay-600 mb-8 md:mb-10 pr-0 md:pr-4">
+                        O barulho do mundo lá fora não entra aqui. Um espaço dedicado a acolher a sua história e transformar a sua angústia em caminho.
+                    </p>
+
+                    <div class="opacity-0 hero-reveal delay-800">
+                        <a href="https://wa.me/5511951326891" target="_blank" class="group relative inline-flex items-center justify-center px-10 py-4 md:px-16 md:py-6 border border-dusty-rose/40 text-dusty-rose font-sans text-[10px] md:text-[11px] tracking-[0.4em] uppercase rounded-full overflow-hidden transition-all duration-1000 hover:text-white bg-nude-soft hover:bg-dusty-rose">
+                            <span class="relative z-10">Estou pronta para ouvir</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="order-2 w-full h-[45vh] md:h-[100vh] relative md:col-span-6 lg:col-span-6 z-10 mt-4 md:mt-0">
+                    <img src="assets/dra-natallia-acolhimento-clinico.webp" 
+                         class="img-cover-position diva-mask opacity-0 md:translate-x-12 hero-img-reveal" 
+                         alt="Dra. Natállia Carreiro"
+                         fetchpriority="high"
+                         loading="eager"
+                         decoding="sync">
+                </div>
+            </section>
+
+            <section id="escuta" class="py-24 md:py-64 px-6 md:px-20 bg-nude-soft relative z-10 border-t border-deep-clay/5">
+                <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-24 items-start">
+                    <div class="space-y-8 md:space-y-12">
+                        <h2 class="font-sans text-[9px] md:text-[10px] tracking-[0.5em] uppercase text-dusty-rose font-bold italic">O Espaço da Escuta</h2>
+                        <h3 class="reveal-type font-serif text-4xl md:text-7xl italic leading-[1.1] font-light text-deep-clay">
+                            "Pode falar, eu estou aqui com você."
+                        </h3>
+                        <div class="reveal-type space-y-6 md:space-y-8 text-deep-clay font-sans font-light text-lg md:text-xl leading-relaxed max-w-xl text-justify md:text-left">
+                            <p>O atendimento digital permite que o processo de análise se integre à sua rotina, no lugar onde você se sente mais segura. Sustentamos o rigor clínico através de uma plataforma protegida.</p>
+                            <p>Meu papel é ser o silêncio necessário para que a sua voz possa emergir.</p>
+                        </div>
+                    </div>
+                    <div class="reveal-type relative aspect-[4/5] overflow-hidden rounded-sm shadow-xl grayscale opacity-90 border border-deep-clay/5 hardware-accel mt-8 md:mt-0">
+                        <img src="assets/dra-natallia-escuta-analitica.webp" 
+                             class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-[2s]" 
+                             alt="Ambiente de calma"
+                             loading="lazy"
+                             decoding="async">
+                    </div>
+                </div>
+            </section>
+
+            <section id="caminhos" class="py-24 md:py-40 bg-white/30 backdrop-blur-md px-6 border-y border-deep-clay/5">
+                <div class="max-w-5xl mx-auto text-center mb-16 md:mb-32">
+                    <h2 class="reveal-type font-serif text-4xl md:text-8xl italic text-deep-clay mb-6 font-light tracking-tighter">Caminhos da Cura</h2>
+                    <p class="font-sans text-[9px] md:text-[11px] tracking-[0.5em] uppercase text-deep-clay/50 font-medium italic">Atendimento Online • Presença Global</p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 md:gap-10 max-w-6xl mx-auto">
+                    <div class="reveal-type p-8 md:p-16 bg-nude-soft/60 border border-deep-clay/5 active:border-dusty-rose/30 transition-all duration-500 rounded-sm">
+                        <h4 class="font-serif text-3xl md:text-4xl mb-6 italic text-deep-clay">Restoring</h4>
+                        <p class="font-sans font-light text-deep-clay/80 leading-relaxed text-sm md:text-lg mb-8">Regulação emocional e silenciamento da ansiedade severa. Protocolo clínico para restaurar a base.</p>
+                        <span class="text-[8px] tracking-[0.3em] uppercase text-dusty-rose font-bold block border-t border-deep-clay/5 pt-4">Resgate & Alívio</span>
+                    </div>
+                    <div class="reveal-type p-8 md:p-16 bg-nude-soft/60 border border-deep-clay/5 active:border-dusty-rose/30 transition-all duration-500 rounded-sm">
+                        <h4 class="font-serif text-3xl md:text-4xl mb-6 italic text-deep-clay">Expanding</h4>
+                        <p class="font-sans font-light text-deep-clay/80 leading-relaxed text-sm md:text-lg mb-8">A análise como ferramenta de expansão de consciência. Inteligência emocional aplicada à sua potência.</p>
+                        <span class="text-[8px] tracking-[0.3em] uppercase text-dusty-rose font-bold block border-t border-deep-clay/5 pt-4">Consciência & Liderança</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contato" class="py-24 md:py-64 px-6 text-center bg-deep-clay text-nude-soft">
+                <div class="max-w-4xl mx-auto space-y-12 md:space-y-20">
+                    <h2 class="reveal-type font-serif text-4xl md:text-[6.8vw] italic font-light leading-tight md:leading-none text-nude-soft">Onde o seu silêncio é compreendido.</h2>
+                    <div class="reveal-type h-px w-24 md:w-40 bg-dusty-rose/30 mx-auto"></div>
+                    <p class="reveal-type font-sans text-[9px] md:text-xs tracking-[0.5em] uppercase opacity-70 italic">Agenda Exclusiva 2026</p>
+                    <a href="https://wa.me/5511951326891" target="_blank" class="reveal-type inline-block px-12 py-6 md:px-20 md:py-8 border border-dusty-rose/40 text-nude-soft font-sans text-[10px] md:text-xs tracking-[0.4em] uppercase active:bg-dusty-rose hover:bg-dusty-rose hover:text-white transition-all duration-500 rounded-full">
+                        Iniciar Conversa
+                    </a>
+                </div>
+            </section>
+
+            <footer class="bg-nude-soft py-16 md:py-24 px-6 md:px-20 border-t border-deep-clay/10 pb-32 md:pb-24">
+                <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-12 md:gap-16">
+                    <div class="space-y-4 md:space-y-6 text-deep-clay">
+                        <p class="font-serif italic text-3xl md:text-4xl leading-none">Natállia Carreiro</p>
+                        <p class="font-sans text-[9px] md:text-[11px] tracking-[0.3em] uppercase font-medium opacity-80">Psicóloga Clínica</p>
+                        <p class="font-sans text-[9px] tracking-[0.2em] text-dusty-rose uppercase font-bold">CRP 06/224488</p>
+                    </div>
+                    <div class="text-[9px] md:text-[10px] tracking-[0.3em] text-deep-clay/40 uppercase space-y-3 leading-loose text-left md:text-right w-full md:w-auto">
+                        <p>Ética & Rigor Clínico</p>
+                        <p>© 2026 Santuário Digital</p>
+                        <div class="flex gap-8 md:justify-end mt-6 border-t md:border-t-0 border-deep-clay/5 pt-6 md:pt-0">
+                            <a href="https://www.instagram.com/psico.carreiro?igsh=MWt6N3FqcjByYWtxcQ%3D%3D&utm_source=qr" target="_blank" class="hover:text-dusty-rose transition-colors">Instagram</a>
+                            <a href="https://wa.me/5511951326891" target="_blank" class="hover:text-dusty-rose transition-colors">WhatsApp</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div> 
+    </div>
+
+    <div class="fixed bottom-0 left-0 w-full p-4 pb-8 z-[60] md:hidden pointer-events-none">
+        <div class="pointer-events-auto flex gap-3">
+             <button id="santuario-trigger-mobile" class="w-14 h-14 flex items-center justify-center bg-nude-soft/95 backdrop-blur-2xl border border-deep-clay/10 rounded-full shadow-lg active:scale-95 transition-transform">
+                <span class="text-xl">🎧</span>
+            </button>
+            
+            <a href="https://wa.me/5511951326891" target="_blank" class="flex-1 flex items-center justify-center gap-3 bg-nude-soft/95 backdrop-blur-2xl border border-dusty-rose/30 rounded-2xl shadow-[0_10px_30px_rgba(74,44,42,0.1)] active:scale-[0.98] transition-transform">
+                <span class="w-1.5 h-1.5 bg-dusty-rose rounded-full animate-pulse"></span>
+                <span class="font-sans text-[9px] uppercase tracking-[0.25em] text-deep-clay font-bold">Fale comigo</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="fixed bottom-8 left-8 z-[100] hidden md:block">
+        <button id="santuario-trigger" class="magnetic-trigger group flex items-center gap-4 px-6 py-3 border border-deep-clay/10 rounded-full bg-nude-soft/80 backdrop-blur-md transition-all duration-700 hover:border-dusty-rose/50">
+            <span class="w-2 h-2 bg-dusty-rose rounded-full animate-pulse"></span>
+            <span class="font-sans text-[9px] tracking-[0.4em] uppercase text-deep-clay group-hover:text-dusty-rose transition-colors">
+                Escutar o Silêncio 🎧
+            </span>
+        </button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+    <script>
+        // --- PRELOADER ---
+        function startLoader() {
+            const preloader = document.querySelector("#preloader");
+            const skipBtn = document.querySelector("#skip-preloader");
+            const msgEl = document.querySelector(".preloader-msg");
+            const msgs = ["Deixe o mundo lá fora...", "Respire fundo.", "Este espaço é seu.", "Pronto."];
+            let isClosed = false;
+            let currentValue = 0;
+
+            const closePreloader = () => {
+                if (isClosed) return;
+                isClosed = true;
+                gsap.to(preloader, {
+                    yPercent: -100, 
+                    duration: 1.5, 
+                    ease: "expo.inOut",
+                    onComplete: () => {
+                        document.body.style.overflow = "auto";
+                        preloader.style.display = "none";
+                        animateHero();
+                    }
+                });
+            };
+
+            skipBtn.addEventListener('click', closePreloader);
+            skipBtn.addEventListener('touchstart', closePreloader, {passive: true});
+            setTimeout(closePreloader, 10000);
+
+            function updateCounter() {
+                if (currentValue >= 100 || isClosed) return;
+                currentValue += 1;
+                let idx = Math.floor((currentValue / 100) * msgs.length);
+                if(msgEl) msgEl.textContent = msgs[idx] || msgs[msgs.length-1];
+                setTimeout(updateCounter, 80);
+            }
+            updateCounter();
+        }
+        window.addEventListener("load", startLoader);
+
+        // --- LENIS SCROLL ---
+        const isMobile = window.innerWidth < 768;
+        const lenis = new Lenis({ 
+            duration: isMobile ? 1.2 : 2.2, 
+            lerp: isMobile ? 0.1 : 0.05, 
+            smoothWheel: true,
+            touchMultiplier: 2
+        });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+
+        // --- SANTUÁRIO LOGIC ---
+        const audio = document.getElementById('healing-audio');
+        const triggerDesktop = document.getElementById('santuario-trigger');
+        const triggerMobile = document.getElementById('santuario-trigger-mobile');
+        const content = document.getElementById('smooth-content');
+        let isSantuario = false;
+
+        function toggleSantuario() {
+            if (!isSantuario) {
+                audio.volume = 0; audio.play();
+                gsap.to(audio, { volume: 0.4, duration: 5 });
+                gsap.to(content, { filter: "brightness(0.94) contrast(1.05) saturate(1.05)", duration: 4 });
+                if(triggerDesktop) triggerDesktop.querySelector('span:last-child').innerText = "O Silêncio Presente";
+                isSantuario = true;
+            } else {
+                gsap.to(audio, { volume: 0, duration: 2, onComplete: () => audio.pause() });
+                gsap.to(content, { filter: "brightness(1) contrast(1) saturate(1)", duration: 2 });
+                if(triggerDesktop) triggerDesktop.querySelector('span:last-child').innerText = "Escutar o Silêncio 🎧";
+                isSantuario = false;
+            }
+        }
+
+        if(triggerDesktop) triggerDesktop.addEventListener('click', toggleSantuario);
+        if(triggerMobile) triggerMobile.addEventListener('click', toggleSantuario);
+
+        // --- ANIMATIONS ---
+        function animateHero() {
+            const tl = gsap.timeline();
+            tl.to(".badge-reveal", { opacity: 1, y: 0, duration: 1.2, ease: "power2.out" })
+              .to(".hero-reveal", { opacity: 1, y: 0, duration: 1.8, stagger: 0.2, ease: "expo.out" }, "-=0.8")
+              .to(".hero-img-reveal", { opacity: 1, x: 0, duration: 2.5, ease: "power3.out" }, "-=1.5");
+        }
+
+        gsap.registerPlugin(ScrollTrigger);
+        ScrollTrigger.batch(".reveal-type", {
+            start: "top 90%",
+            onEnter: batch => gsap.to(batch, {
+                opacity: 1, filter: "blur(0px)", y: 0, duration: 1.5, stagger: 0.15, ease: "expo.out", overwrite: true
+            })
+        });
+
+        // --- CURSOR ---
+        if (!isMobile) {
+            const cursorMain = document.querySelector('.cursor-main');
+            const cursorFollower = document.querySelector('.cursor-follower');
+            
+            const setFollowerX = gsap.quickSetter(cursorFollower, "x", "px");
+            const setFollowerY = gsap.quickSetter(cursorFollower, "y", "px");
+            const setMainX = gsap.quickSetter(cursorMain, "x", "px");
+            const setMainY = gsap.quickSetter(cursorMain, "y", "px");
+
+            let mouseX = 0, mouseY = 0, followerX = 0, followerY = 0;
+            
+            window.addEventListener('mousemove', e => { 
+                mouseX = e.clientX; mouseY = e.clientY; 
+                setMainX(mouseX); setMainY(mouseY);
+            });
+            
+            gsap.ticker.add(() => {
+                const dt = 1.0 - Math.pow(1.0 - 0.12, gsap.ticker.deltaRatio()); 
+                followerX += (mouseX - followerX) * dt;
+                followerY += (mouseY - followerY) * dt;
+                setFollowerX(followerX);
+                setFollowerY(followerY);
+            });
+        }
+    </script>
+</body>
+</html>

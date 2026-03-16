@@ -1,13 +1,13 @@
 "use client";
 
 import { useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
 
 // --- COMPONENTES DO ECOSSISTEMA ---
-import { Manifesto } from "@/components/sections/manifesto";
-import { SelectedWorks } from "@/components/sections/selected-works";
-import { Footer } from "@/components/sections/footer";
+import dynamic from "next/dynamic";
+
+const Manifesto = dynamic(() => import("@/components/sections/manifesto").then(m => m.Manifesto), { ssr: false });
+const SelectedWorks = dynamic(() => import("@/components/sections/selected-works").then(m => m.SelectedWorks), { ssr: false });
+const Footer = dynamic(() => import("@/components/sections/footer").then(m => m.Footer), { ssr: false });
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -15,38 +15,7 @@ export default function Home() {
   const pillarsRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
-    // roda apenas em telas maiores para preservar 60fps mobile
-    const mm = gsap.matchMedia();
-    mm.add("(min-width: 768px)", () => {
-      // Timeline de Inicialização do Sistema
-      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
-      // 1. Título: Sobe com Blur (Efeito Glass)
-      tl.fromTo(titleRef.current,
-        { y: 150, opacity: 0, filter: "blur(20px)" },
-        { y: 0, opacity: 1, filter: "blur(0px)", duration: 1.8 }
-      );
-
-      // 2. Pilares: Revelação lateral técnica
-      tl.fromTo(pillarsRef.current,
-        { opacity: 0, letterSpacing: "1.5em", scale: 0.9 },
-        { opacity: 1, letterSpacing: "0.2em", scale: 1, duration: 1.5 },
-        "-=1.2"
-      );
-
-      // 3. Scroll Indicator: Fade simples
-      tl.fromTo(scrollRef.current,
-        { opacity: 0, y: -20 },
-        { opacity: 0.5, y: 0, duration: 1, repeat: -1, yoyo: true, ease: "sine.inOut" },
-        "-=0.5"
-      );
-
-      return () => tl.kill();
-    });
-
-    return () => mm.revert();
-  }, { scope: containerRef });
 
   return (
     <div ref={containerRef} className="w-full overflow-hidden max-w-[1440px] mx-auto">

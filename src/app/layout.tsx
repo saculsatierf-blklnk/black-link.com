@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 import { Cinzel, Manrope, Geist_Mono } from "next/font/google"; 
 import LayoutClient from "@/components/ui/layout-client";
 
-// 1. CORREÇÃO DA IMPORTAÇÃO (Sem chaves)
-import Preloader from "@/components/ui/preloader";
-import { GrainOverlay } from "@/components/ui/grain-overlay";
 
 // 2. INJEÇÃO DO PROVEDOR DE ESTADO
 import { EngineProvider } from "@/components/providers/engine-provider";
@@ -54,7 +51,7 @@ export default function RootLayout({
 }>) {
 
   return (
-    <html lang="en" className="lenis">
+    <html lang="en">
       <body
         className={`${manrope.variable} ${cinzel.variable} ${geistMono.variable} font-sans antialiased bg-void text-platinum selection:bg-gold-dust selection:text-void overflow-x-hidden`}
       >

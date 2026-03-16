@@ -3,11 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function PH7Page() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -108,13 +103,17 @@ export default function PH7Page() {
     const onMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      gsap.to(cursorMain, {x: mouseX - 5, y: mouseY - 5, duration: 0});
+        if (cursorMain) {
+            cursorMain.style.transform = `translate(${mouseX - 5}px, ${mouseY - 5}px)`;
+        }
     };
 
     const animateCursor = () => {
       followerX += (mouseX - followerX) * 0.1;
       followerY += (mouseY - followerY) * 0.1;
-      gsap.set(cursorFollower, {x: followerX - 25, y: followerY - 25});
+      if (cursorFollower) {
+          cursorFollower.style.transform = `translate(${followerX - 25}px, ${followerY - 25}px)`;
+      }
       requestAnimationFrame(animateCursor);
     };
 
@@ -125,70 +124,33 @@ export default function PH7Page() {
     const magnetics = document.querySelectorAll('a, button, .magnetic-trigger');
     magnetics.forEach(el => {
       el.addEventListener('mouseenter', () => { 
-        gsap.to(cursorFollower, {scale: 1.5, borderColor: '#C5A059', duration: 0.3}); 
-        gsap.to(cursorMain, {scale: 0}); 
+        if (cursorFollower) {
+            cursorFollower.style.transform = 'scale(1.5)';
+            cursorFollower.style.borderColor = '#C5A059';
+            cursorFollower.style.transition = 'all 0.3s ease';
+        }
+        if (cursorMain) {
+            cursorMain.style.transform = 'scale(0)';
+            cursorMain.style.transition = 'all 0.3s ease';
+        }
       });
       el.addEventListener('mouseleave', () => { 
-        gsap.to(cursorFollower, {scale: 1, borderColor: 'rgba(197,160,89,0.3)', duration: 0.3}); 
-        gsap.to(cursorMain, {scale: 1}); 
+        if (cursorFollower) {
+            cursorFollower.style.transform = 'scale(1)';
+            cursorFollower.style.borderColor = 'rgba(197,160,89,0.3)';
+            cursorFollower.style.transition = 'all 0.3s ease';
+        }
+        if (cursorMain) {
+            cursorMain.style.transform = 'scale(1)';
+            cursorMain.style.transition = 'all 0.3s ease';
+        }
       });
     });
 
     return () => window.removeEventListener('mousemove', onMouseMove);
   }, []);
 
-  // --- 4. ANIMAÇÕES GSAP (SCROLL & REVEAL) ---
-  useGSAP(() => {
-    // Reveal Inicial
-    const tl = gsap.timeline();
-    tl.from(".animate-title-up", {
-      y: "100%", 
-      duration: 1.5, 
-      ease: "power4.out", 
-      stagger: 0.2,
-      delay: 0.5
-    })
-    .from(".animate-text-reveal", {
-      y: 20, 
-      opacity: 0, 
-      duration: 1
-    }, "-=1");
 
-    // Parallax
-    gsap.utils.toArray<HTMLElement>("[data-speed]").forEach((el) => {
-      gsap.to(el, {
-        y: (i, target) => -20 * parseFloat(target.dataset.speed || "0") + "%",
-        ease: "none",
-        scrollTrigger: {
-          trigger: el.parentElement,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 0,
-        },
-      });
-    });
-
-    // Skew Effect
-    let proxy = { skew: 0 };
-    const skewSetter = gsap.quickSetter(".skew-elem", "skewY", "deg");
-    const clamp = gsap.utils.clamp(-20, 20);
-
-    ScrollTrigger.create({
-      onUpdate: (self) => {
-        const skew = clamp(self.getVelocity() / -300);
-        if (Math.abs(skew) > Math.abs(proxy.skew)) {
-          proxy.skew = skew;
-          gsap.to(proxy, {
-            skew: 0,
-            duration: 0.8,
-            ease: "power3",
-            overwrite: true,
-            onUpdate: () => skewSetter(proxy.skew),
-          });
-        }
-      },
-    });
-  }, { scope: containerRef });
 
   return (
     // 'cursor-none' esconde o cursor padrão do sistema para usar o nosso
@@ -198,14 +160,14 @@ export default function PH7Page() {
       <audio ref={audioRef} loop src="/assets/ph7/beat.mp3" />
 
       {/* BACKGROUND CANVAS */}
-      <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full z-0 opacity-40 pointer-events-none" />
+      <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full z-0 opacity-40 pointer-events-none transform-gpu" />
 
       {/* CURSOR CUSTOMIZADO */}
-      <div ref={cursorMainRef} className="fixed w-[10px] h-[10px] bg-gold-dust rounded-full pointer-events-none z-[10000] mix-blend-difference top-0 left-0" />
+      <div ref={cursorMainRef} className="fixed w-[10px] h-[10px] bg-gold-dust rounded-full pointer-events-none z-[10000] top-0 left-0" />
       <div ref={cursorFollowerRef} className="fixed w-[50px] h-[50px] border border-gold-dust/30 rounded-full pointer-events-none z-[9999] top-0 left-0" />
 
       {/* UI: BOTÃO VOLTAR (SYSTEM RETURN) */}
-      <Link href="/" className="fixed top-8 left-8 z-50 flex items-center gap-3 px-6 py-3 border border-platinum/30 bg-black/20 backdrop-blur-md rounded-full group transition-all duration-500 hover:border-gold-dust hover:bg-black/60 cursor-none overflow-hidden magnetic-trigger">
+      <Link href="/" className="fixed top-8 left-8 z-50 flex items-center gap-3 px-6 py-3 border border-platinum/30 bg-black/80 rounded-full group transition-all duration-500 hover:border-gold-dust hover:bg-black/90 cursor-none overflow-hidden magnetic-trigger transform-gpu">
         <div className="absolute inset-0 bg-gold-dust/10 opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-500" />
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-platinum group-hover:text-gold-dust transition-colors relative z-10">
             <path d="m12 19-7-7 7-7"></path>
@@ -217,7 +179,7 @@ export default function PH7Page() {
       </Link>
 
       {/* UI: CONTROLE DE ÁUDIO */}
-      <div onClick={toggleAudio} className="fixed bottom-8 right-8 z-50 flex items-center gap-3 cursor-none mix-blend-difference group magnetic-trigger">
+      <div onClick={toggleAudio} className="fixed bottom-8 right-8 z-50 flex items-center gap-3 cursor-none group magnetic-trigger">
         <span className={`font-sans text-[10px] uppercase tracking-widest transition-colors ${isPlaying ? "text-gold-dust" : "text-platinum"}`}>
           {isPlaying ? "SOUND :: ON" : "SOUND :: OFF"}
         </span>
@@ -231,7 +193,7 @@ export default function PH7Page() {
       </div>
 
       {/* UI: LAUNCH PROTOCOL */}
-      <nav className="fixed w-full z-50 px-8 py-8 flex justify-end items-center mix-blend-exclusion pointer-events-none">
+      <nav className="fixed w-full z-50 px-8 py-8 flex justify-end items-center pointer-events-none">
         <a href="https://open.spotify.com/track/1ZFlZMhBWuO7agS3lgDsYU?si=nX3cl1dnQI2K07NhHQ66ew" target="_blank" className="text-[10px] uppercase tracking-[0.3em] font-sans border border-white/20 px-6 py-3 rounded-full hover:bg-gold-dust hover:text-void transition-all duration-500 pointer-events-auto cursor-none magnetic-trigger">
             OUVIR AGORA
         </a>
@@ -241,7 +203,7 @@ export default function PH7Page() {
       <section className="relative h-screen w-full flex flex-col justify-center items-center overflow-hidden border-b border-white/5">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/ph7/hero.jpg"
+            src="/assets/ph7/hero.webp"
             alt="PH7 Atmosphere"
             fill
             className="object-cover opacity-50 scale-110"
@@ -253,7 +215,7 @@ export default function PH7Page() {
 
         <div className="relative z-10 text-center skew-elem">
           <div className="overflow-hidden mb-2">
-            <span className="animate-text-reveal font-sans text-platinum text-xs md:text-sm uppercase tracking-[0.4em] border border-white/10 inline-block px-4 py-1 rounded-full bg-void/50 backdrop-blur-sm">
+            <span className="animate-text-reveal font-sans text-platinum text-xs md:text-sm uppercase tracking-[0.4em] border border-white/10 inline-block px-4 py-1 rounded-full bg-void/90 transform-gpu">
               20.12.2025
             </span>
           </div>
@@ -262,7 +224,7 @@ export default function PH7Page() {
               LANÇAMENTO OFICIAL
             </p>
           </div>
-          <h1 className="font-serif text-[15vw] leading-[0.8] text-platinum mix-blend-overlay uppercase tracking-tighter">
+          <h1 className="font-serif text-[15vw] leading-[0.8] text-platinum uppercase tracking-tighter">
             <div className="overflow-hidden"><span className="animate-title-up block">PH-VZ1</span></div>
             <div className="overflow-hidden">
               <span className="animate-title-up block italic text-gold-dust font-light text-[5vw] tracking-normal mt-4">
@@ -288,7 +250,7 @@ export default function PH7Page() {
           </video>
           <div className="absolute inset-0 bg-void/20" />
         </div>
-        <div className="relative z-10 text-center mix-blend-overlay">
+        <div className="relative z-10 text-center">
           <h2 className="font-serif text-[10vw] text-platinum leading-none tracking-tighter skew-elem">ATMOSFERA</h2>
         </div>
       </section>
@@ -297,7 +259,7 @@ export default function PH7Page() {
       <section className="relative h-screen w-full flex flex-col justify-center items-center bg-void z-10 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/ph7/capa.png"
+            src="/assets/ph7/capa.webp"
             alt="Capa Single"
             fill
             className="object-cover opacity-60 scale-110 blur-sm"
@@ -309,10 +271,10 @@ export default function PH7Page() {
         <div className="relative z-10 text-center">
           <a href="https://open.spotify.com/track/1ZFlZMhBWuO7agS3lgDsYU?si=nX3cl1dnQI2K07NhHQ66ew" target="_blank" className="magnetic-trigger group relative flex flex-col items-center justify-center p-12 md:p-24 transition-transform hover:scale-105 cursor-none">
             <div className="absolute inset-0 bg-gold-dust blur-[100px] opacity-0 group-hover:opacity-30 transition-opacity duration-700 rounded-full" />
-            <h2 className="font-serif text-[12vw] leading-none text-platinum group-hover:text-gold-dust transition-colors duration-500 mix-blend-overlay">
+            <h2 className="font-serif text-[12vw] leading-none text-platinum group-hover:text-gold-dust transition-colors duration-500">
               PRE-SAVE
             </h2>
-            <div className="mt-10 flex items-center gap-3 border border-white/30 px-8 py-3 rounded-full group-hover:bg-gold-dust group-hover:border-gold-dust group-hover:text-void transition-all duration-500 bg-black/50 backdrop-blur-md">
+            <div className="mt-10 flex items-center gap-3 border border-white/30 px-8 py-3 rounded-full group-hover:bg-gold-dust group-hover:border-gold-dust group-hover:text-void transition-all duration-500 bg-black/80 transform-gpu">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
               <span className="text-xs uppercase tracking-widest font-sans font-bold">OUVIR NO SPOTIFY</span>
             </div>

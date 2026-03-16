@@ -1,9 +1,15 @@
 "use client";
 
 import { ReactNode, useState } from "react";
-import Preloader from "./preloader";
-import { GrainOverlay } from "./grain-overlay";
-import GlobalCanvas from "../providers/canvas/scene";
+
+import dynamic from "next/dynamic";
+
+const GlobalCanvas = dynamic(() => import("../providers/canvas/scene"), {
+  ssr: false,
+});
+const Preloader = dynamic(() => import("./preloader"), {
+  ssr: false,
+});
 import { Navbar } from "./navbar";
 import { SmoothScroll } from "../providers/smooth-scroll";
 
@@ -17,7 +23,6 @@ export default function LayoutClient({ children }: LayoutClientProps) {
   return (
     <>
       <Preloader />
-      <GrainOverlay />
       <GlobalCanvas menuOpen={menuOpen} />
 
       <SmoothScroll>
