@@ -13,9 +13,11 @@ interface NavbarProps {
 export function Navbar({ isOpen, setIsOpen }: NavbarProps) {
   const [montado, setMontado] = useState(false);
   const [artistasAberto, setArtistasAberto] = useState(false);
+  const [spoilersAberto, setSpoilersAberto] = useState(false);
   
   const menuPanelRef = useRef<HTMLDivElement>(null);
   const ecossistemaRef = useRef<HTMLDivElement>(null);
+  const spoilersRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
   const paginaImersiva = pathname === "/ph7" || pathname === "/prod-brga";
@@ -50,6 +52,21 @@ export function Navbar({ isOpen, setIsOpen }: NavbarProps) {
       gsap.to(ecossistemaRef.current, { height: 0, duration: 0.3, ease: "power2.in" });
     }
   }, [artistasAberto]);
+
+  // GSAP for Spoilers Accordion Dropdown
+  useEffect(() => {
+    if (!spoilersRef.current) return;
+    
+    if (spoilersAberto) {
+      gsap.to(spoilersRef.current, { height: "auto", duration: 0.4, ease: "power2.out" });
+      gsap.fromTo(spoilersRef.current.querySelectorAll('.sub-item'), 
+        { opacity: 0, x: -10 }, 
+        { opacity: 1, x: 0, duration: 0.3, stagger: 0.05, ease: "power1.out", delay: 0.1 }
+      );
+    } else {
+      gsap.to(spoilersRef.current, { height: 0, duration: 0.3, ease: "power2.in" });
+    }
+  }, [spoilersAberto]);
 
   const alternarMenu = () => setIsOpen((estado) => !estado);
 
@@ -105,6 +122,23 @@ export function Navbar({ isOpen, setIsOpen }: NavbarProps) {
                   <SubLink href="https://gofermetais.com.br" rotulo="Gofer Metais" externo aoClicar={alternarMenu} />
                   <SubLink href="https://davidhbsviagens.com" rotulo="David HBS" externo aoClicar={alternarMenu} />
                   <SubLink href="https://diinc.com.br" rotulo="DIINC SP" externo aoClicar={alternarMenu} />
+                </div>
+              </div>
+            </div>
+
+            {/* CATEGORIA SPOILERS */}
+            <div 
+              className="flex flex-col group cursor-pointer"
+              onMouseEnter={() => setSpoilersAberto(true)}
+              onMouseLeave={() => setSpoilersAberto(false)}
+            >
+              <span className="font-cinzel text-2xl md:text-3xl tracking-wider text-white group-hover:text-white/70 transition-colors uppercase">
+                Spoilers
+              </span>
+              
+              <div ref={spoilersRef} className="overflow-hidden h-0 flex flex-col gap-4 pl-4 border-l border-white/10 mt-4">
+                <div className="flex flex-col gap-2 sub-item">
+                  <SubLink href="/protocolo" rotulo="Estética Avançada" aoClicar={alternarMenu} />
                 </div>
               </div>
             </div>

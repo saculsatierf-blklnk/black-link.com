@@ -1,12 +1,13 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 // @ts-ignore
 import { Instagram, Mail, Phone } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 // Registra o plugin para evitar erros de animação
 if (typeof window !== "undefined") {
@@ -23,6 +24,7 @@ const SERVICE_OPTIONS = [
 
 export default function ContactPage() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
   
   // Estado do Formulário
   const [formData, setFormData] = useState({
@@ -81,7 +83,10 @@ export default function ContactPage() {
     setTimeout(() => {
       window.open(whatsappUrl, '_blank');
       setStatus("success");
-      setTimeout(() => setStatus("idle"), 3000);
+      setTimeout(() => {
+        setStatus("idle");
+        router.push('/protocolo/obrigado');
+      }, 1000);
     }, 1000);
   };
 

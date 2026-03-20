@@ -6,7 +6,7 @@ import LayoutClient from "@/components/ui/layout-client";
 // 2. INJEÇÃO DO PROVEDOR DE ESTADO
 import { EngineProvider } from "@/components/providers/engine-provider";
 
-import "./global.css"; 
+import "../global.css"; 
 
 const cinzel = Cinzel({
   subsets: ["latin"],

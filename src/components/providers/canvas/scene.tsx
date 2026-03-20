@@ -18,7 +18,7 @@ function GlobalCanvas({ menuOpen }: GlobalCanvasProps) {
   }, [menuOpen]);
 
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none w-full h-full bg-void">
+    <div id="global-canvas-container" className="fixed inset-0 z-0 pointer-events-none w-full h-full bg-void">
       <Canvas
         className="w-full h-full"
         // Otimização Extrema para Shaders 2D

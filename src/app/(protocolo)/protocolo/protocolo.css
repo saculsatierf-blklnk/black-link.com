@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+/* O MOTOR TIPOGRÁFICO DE ELITE (CARREGAMENTO DE FONTES) */
+
+/* === TÍTULOS (HEADINGS) === */
+@font-face {
+  font-family: 'Oswald';
+  src: url('/fonts/Oswald.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DM Serif Display';
+  src: url('/fonts/DMSerifDisplay.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('/fonts/PlayfairDisplay.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('/fonts/BebasNeue.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/CormorantGaramond.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Syne';
+  src: url('/fonts/Syne.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+
+/* === CORPO (BODY) === */
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('/fonts/OpenSans.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/Geist.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('/fonts/Lato.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('/fonts/Outfit.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+:root {
+  --font-heading-tool: "Oswald", sans-serif;
+  --font-body-tool: "Inter", sans-serif;
+  --bg-base: #030303;
+  --bg-surface: #0a0a0a;
+  --text-main: #e5e7eb;
+  --text-muted: rgba(255, 255, 255, 0.4);
+  --color-accent: #C5A059;
+}
+
+#protocolo-view {
+  background-color: var(--bg-base) !important;
+  color: var(--text-main) !important;
+  font-family: var(--font-body-tool) !important;
+  min-height: 100vh;
+  position: relative;
+  z-index: 9999 !important; /* ULTRA HIGH PRIORITY */
+}
+
+body {
+  font-family: var(--font-body-tool) !important;
+}
+
+input,
+button,
+textarea,
+select {
+  font-family: inherit;
+}
+
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6, 
+.font-elite {
+  font-family: var(--font-heading-tool) !important;
+  letter-spacing: 0.05em;
+  line-height: 0.9;
+}
+
+/* As exceções de preview agora funcionam através do style inline naturalmente, pois removemos o !important agressivo das tags span/div */
+
+#protocolo-view ::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* Reset de herança de responsividade (MOBILE FIX) */
+#protocolo-view {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: visible !important;
+  box-sizing: border-box;
+}
+
+#protocolo-view * {
+  box-sizing: border-box;
+}
