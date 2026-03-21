@@ -74,13 +74,13 @@ export function Navbar({ isOpen, setIsOpen }: NavbarProps) {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-[100] px-6 py-6 md:px-12 md:py-8 flex justify-between items-center text-white pointer-events-none">
+      <nav className="fixed top-0 left-0 w-full z-[990] px-6 py-6 md:px-12 md:py-8 flex justify-between items-center text-white pointer-events-none">
         <Link href="/" className="pointer-events-auto">
           <span className="font-sans text-xl md:text-2xl font-medium tracking-tight hover:opacity-70 transition-opacity">
             BLACK LINK
           </span>
         </Link>
-        <button onClick={alternarMenu} className="pointer-events-auto flex flex-col gap-[6px] p-2 hover:opacity-80 transition-opacity z-[9999] relative">
+        <button onClick={alternarMenu} className="pointer-events-auto flex flex-col gap-[6px] p-2 hover:opacity-80 transition-opacity z-[999] relative">
           <span className={`w-6 md:w-8 h-[2px] bg-white block transition-all duration-500 ease-out ${isOpen ? "rotate-45 translate-y-[8px]" : ""}`} />
           <span className={`w-6 md:w-8 h-[2px] bg-white block transition-all duration-500 ease-out ${isOpen ? "opacity-0 translate-x-4" : ""}`} />
           <span className={`w-6 md:w-8 h-[2px] bg-white block transition-all duration-500 ease-out ${isOpen ? "-rotate-45 -translate-y-[8px]" : ""}`} />
@@ -90,7 +90,7 @@ export function Navbar({ isOpen, setIsOpen }: NavbarProps) {
       {montado && (
         <div 
           ref={menuPanelRef}
-          className="fixed top-24 right-6 md:right-12 w-80 md:w-[400px] bg-[#050505] border border-white/10 rounded-2xl shadow-2xl p-6 md:p-8 z-[9000] invisible pointer-events-auto"
+          className="fixed top-24 right-6 md:right-12 w-80 md:w-[400px] bg-[#050505] border border-white/10 rounded-2xl shadow-2xl p-6 md:p-8 z-[998] invisible pointer-events-auto"
         >
           <div className="flex flex-col gap-6">
             <NavItem href="/" rotulo="Início" aoClicar={alternarMenu} />

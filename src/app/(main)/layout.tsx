@@ -30,17 +30,49 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: {
     template: "%s | BLACK LINK",
-    default: "BLACK LINK | Elite Digital Ecosystem",
+    default: "BLACK LINK | Ecossistema Digital - Portfólio de Elite",
   },
-  description: "Ecosystem for high-end web design (R3F/GSAP), automation intelligence, and sovereign performance marketing.",
-  keywords: ["Web Design", "GSAP", "React Three Fiber", "Automation", "Performance Marketing", "Black Link"],
-  authors: [{ name: "Lucas", url: "https://blacklink.agency" }],
-  icons: { icon: "/favicon.ico" },
+  description: "Arquitetura de performance extrema e design Noir. Criamos ecossistemas digitais de elite com fluidez absoluta, estética imersiva e tecnologia de vanguarda.",
+  keywords: ["Web Design", "GSAP", "React Three Fiber", "Performance", "Noir", "Black Link", "Ecossistema Digital"],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  icons: { 
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.png", type: "image/png", sizes: "32x32" }
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" }
+    ],
+  },
   openGraph: {
-    title: "BLACK LINK | Elite Digital Ecosystem",
-    description: "Interfaces de luxo, inteligência artificial e performance soberana.",
+    title: "BLACK LINK | Ecossistema Digital - Portfólio de Elite",
+    description: "Arquitetura de performance extrema e design Noir. Criamos ecossistemas digitais de elite com fluidez absoluta, estética imersiva e tecnologia de vanguarda.",
     type: "website",
     locale: "pt_BR",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "BLACK LINK - Portfólio de Elite",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "BLACK LINK | Ecossistema Digital - Portfólio de Elite",
+    description: "Arquitetura de performance extrema e design Noir.",
+    images: ["/og-image.jpg"],
   },
 };
 

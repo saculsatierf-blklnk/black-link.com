@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useProject } from '../_context/ProjectContext';
@@ -15,7 +15,7 @@ export default function Mestres() {
   const { ceoName } = useProject();
   const nomeExibicao = ceoName || "A Autoridade";
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const contexto = gsap.context(() => {
       // 1. Zoom constante e imperceptível (respiração da imagem)
       if (imagemRef.current) {
