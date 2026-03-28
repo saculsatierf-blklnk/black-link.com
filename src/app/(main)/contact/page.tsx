@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useSovereign } from "@/components/providers/sovereign-provider";
 // @ts-ignore
 import { Instagram, Mail, Phone } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
