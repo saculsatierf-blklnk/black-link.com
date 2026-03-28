@@ -104,7 +104,7 @@ export default function Ritual() {
       <div className="relative mx-auto flex w-full max-w-[1440px] flex-col items-center justify-start gap-16 px-6 pt-32 pb-32">
         
         <h1 className="mt-12 text-center text-3xl uppercase leading-[0.9] md:text-5xl">
-          ACESSO PRIVADO
+          SUA NOVA EXPERIENCIA COMEÇA AQUI.
         </h1>
 
         <div className="flex w-full max-w-4xl flex-col gap-10">
@@ -113,7 +113,7 @@ export default function Ritual() {
             <div className="animate-in fade-in mx-auto flex w-full max-w-xl flex-col gap-6 duration-700">
               <div className="flex flex-col gap-2">
                 <label className="mb-2 text-center text-xs uppercase tracking-[0.2em] text-[var(--text-muted)]">
-                  Lembra da senha que te mandei? É aqui que você insere ela.
+                  Que bom ter você por aqui. Insira a senha que te enviei para começar a configurar sua nova vitrine.
                 </label>
                 
                 <div className="relative w-full">
@@ -143,7 +143,7 @@ export default function Ritual() {
                 onClick={validarSenha}
                 className="rounded-none border border-[var(--text-muted)] bg-transparent px-8 py-4 text-xs uppercase tracking-widest text-[var(--text-main)] transition-all duration-300 hover:border-[var(--text-main)] hover:bg-[var(--bg-surface)] focus:outline-none"
               >
-                Avançar
+                ACESSAR
               </button>
 
               <div className={`flex justify-center transition-opacity duration-700 ${tentativaFalha ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
@@ -162,21 +162,21 @@ export default function Ritual() {
               
               <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                 <div className="flex flex-col gap-3">
-                  <label className="text-xs uppercase tracking-[0.2em] text-[var(--text-muted)]">Como vamos identificar seu império?</label>
+                  <label className="text-xs uppercase tracking-[0.2em] text-[var(--text-muted)]">Qual o nome da sua clínica?</label>
                   <input type="text" value={clinicName} onChange={(e) => setClinicName(e.target.value)}
                     className={`w-full rounded-none border bg-[var(--bg-surface)] p-5 text-lg tracking-wide text-[var(--text-main)] transition-colors focus:outline-none focus:border-[var(--color-accent)] ${erroCampos && !clinicName.trim() ? 'border-red-900/50' : 'border-[var(--text-muted)]'}`}
                     placeholder="Ex: Clínica Blanc" />
                 </div>
 
                 <div className="flex flex-col gap-3">
-                  <label className="text-xs uppercase tracking-[0.2em] text-[var(--text-muted)]">Onde você está fazendo história?</label>
+                  <label className="text-xs uppercase tracking-[0.2em] text-[var(--text-muted)]">Em qual cidade e estado você atua?</label>
                   <input type="text" value={location} onChange={(e) => setLocation(e.target.value)}
                     className={`w-full rounded-none border bg-[var(--bg-surface)] p-5 text-lg tracking-wide text-[var(--text-main)] transition-colors focus:outline-none focus:border-[var(--color-accent)] ${erroCampos && !location.trim() ? 'border-red-900/50' : 'border-[var(--text-muted)]'}`}
                     placeholder="Ex: São Paulo" />
                 </div>
 
                 <div className="flex flex-col gap-3">
-                  <label className="text-xs uppercase tracking-[0.2em] text-[var(--text-muted)]">A Autoridade (Nome)</label>
+                  <label className="text-xs uppercase tracking-[0.2em] text-[var(--text-muted)]">Como você prefere ser chamado profissionalmente?</label>
                   <input type="text" value={ceoName} onChange={(e) => setCeoName(e.target.value)}
                     className="w-full rounded-none border bg-[var(--bg-surface)] p-5 text-lg tracking-wide text-[var(--text-main)] transition-colors focus:border-[var(--color-accent)] focus:outline-none border-[var(--text-muted)]"
                     placeholder="Ex: Dr. Valmont" />
@@ -205,7 +205,7 @@ export default function Ritual() {
                 
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                   <div className="flex flex-col gap-4">
-                    <h3 className="mb-2 text-[10px] uppercase tracking-[0.3em] text-[var(--color-accent)] transition-colors">Conjuntos de Poder (Identidade)</h3>
+                    <h3 className="mb-2 text-[10px] uppercase tracking-[0.3em] text-[var(--color-accent)] transition-colors">Escolha o conjunto de fontes que melhor define seu estilo.</h3>
                     {[
                       { id: 'dominio', nome: '01. Domínio', desc: 'Extenda & Inter', psic: 'Vanguarda e Estabilidade.', cssHeading: '"Oswald", sans-serif', cssBody: '"Inter", sans-serif' },
                       { id: 'heranca', nome: '02. Herança', desc: 'Fortune Daily & Montserrat', psic: 'Tradição e Presença Institucional.', cssHeading: '"DM Serif Display", serif', cssBody: '"Montserrat", sans-serif' },
@@ -224,7 +224,7 @@ export default function Ritual() {
                   </div>
 
                   <div className="flex flex-col gap-4">
-                    <h3 className="mb-2 text-[10px] uppercase tracking-[0.3em] text-[var(--color-accent)] transition-colors">Espectro de Cor</h3>
+                    <h3 className="mb-2 text-[10px] uppercase tracking-[0.3em] text-[var(--color-accent)] transition-colors">Selecione a paleta de cores que representará sua marca.</h3>
                     {[
                       { id: 'obsidian', nome: 'Obsidian Gold', hexBg: '#030303', hexAccent: '#C5A059' },
                       { id: 'chrome', nome: 'Chrome Silver', hexBg: '#0a0a0a', hexAccent: '#E2E8F0' },
@@ -249,7 +249,7 @@ export default function Ritual() {
               {/* Bloco Expandido de Serviços */}
               <div className="flex flex-col gap-8 border-t border-[var(--text-muted)] pt-6">
                 <label className="text-center text-xs uppercase tracking-[0.2em] text-[var(--text-muted)]">
-                  Selecione os pilares do seu império
+                  Quais são os produtos e serviços da sua operação hoje?
                 </label>
                 
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
@@ -292,7 +292,7 @@ export default function Ritual() {
 
               <div className="flex justify-center pt-8">
                 <button onClick={handleUnlock} className="rounded-none bg-[var(--text-main)] px-12 py-5 font-bold uppercase tracking-widest text-[var(--bg-base)] transition-all duration-300 hover:opacity-80 focus:outline-none">
-                  GERAR ESTRUTURA
+                  GERAR PRÉVIA
                 </button>
               </div>
             </div>

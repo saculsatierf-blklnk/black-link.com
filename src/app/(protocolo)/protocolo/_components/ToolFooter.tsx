@@ -65,8 +65,7 @@ export default function ToolFooter() {
       
       const nomeClinica = clinicName || 'clínica';
       const linkSeguro = cloudUrl ? cloudUrl : '[Link de Nuvem Indisponível - Documento Retido Localmente]';
-      
-      const mensagemBlackLink = `Olá, Lucas!\nFinalizei a modelagem arquitetural para a ${nomeClinica.toUpperCase()}.\n\n📄 *MEU DOSSIÊ BLACK LINK*\nAcesse a base atual da nossa estratégia aqui:\n${linkSeguro}\n\nGostaria de conversar melhor sobre o desenvolvimento dessa fundação.`;
+      const mensagemBlackLink = `Olá, Lucas! Acabei de gerar o protótipo do meu novo site para a ${nomeClinica.toUpperCase()}. Vamos conversar sobre o próximo passo?`;
       const linkAtivacao = `https://wa.me/5511978291846?text=${encodeURIComponent(mensagemBlackLink)}`;
 
       // Libera o link real do WhatsApp (Safeguard Mobile)
@@ -75,7 +74,7 @@ export default function ToolFooter() {
     } catch (error) {
       console.error("Falha no processo de ativação:", error);
       // Fallback em caso de erro no PDF para não reter o lead
-      const mensagemErro = `Olá, Lucas!\nTentei gerar o dossiê para ${clinicName || 'minha clínica'} mas ocorreu um bloqueio técnico. Gostaria de assistência manual.`;
+      const mensagemErro = `Olá, Lucas! Tentei gerar o protótipo do meu novo site para a ${clinicName.toUpperCase()} mas ocorreu um bloqueio técnico. Vamos conversar sobre o próximo passo?`;
       setFinalLink(`https://wa.me/5511978291846?text=${encodeURIComponent(mensagemErro)}`);
     } finally {
       setIsProcessing(false);
@@ -123,7 +122,7 @@ export default function ToolFooter() {
               >
                 <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-[var(--color-accent)]/30 to-transparent transition-transform duration-1000 group-hover:translate-x-full"></div>
                 <span className={`relative z-10 text-[11px] md:text-[13px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] transition-all duration-500 text-white drop-shadow-[0_0_10px_var(--color-accent)]`}>
-                  ACIONAR VIA WHATSAPP
+                  ENVIE SEU PROTOTIPO PARA CONTINUARMOS A CONVERSA
                 </span>
               </a>
             ) : (
@@ -135,7 +134,7 @@ export default function ToolFooter() {
               >
                 <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-[var(--color-accent)]/30 to-transparent transition-transform duration-1000 group-hover:translate-x-full"></div>
                 <span ref={textoBotaoRef} className={`relative z-10 text-[11px] md:text-[13px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] transition-all duration-500 ${isProcessing ? 'text-[var(--text-muted)]' : 'text-[var(--text-main)] group-hover:text-white group-hover:drop-shadow-[0_0_10px_var(--color-accent)]'}`}>
-                  {isProcessing ? 'COMPILANDO DOSSIÊ...' : textoBotaoFinal}
+                  {isProcessing ? 'COMPILANDO DOSSIÊ...' : 'ENVIE SEU PROTOTIPO PARA CONTINUARMOS A CONVERSA'}
                 </span>
               </button>
             )}

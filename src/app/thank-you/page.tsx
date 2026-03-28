@@ -10,6 +10,12 @@ export default function ThankYouPage() {
   const buttonRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      sessionStorage.removeItem("blacklink_dna_session");
+      localStorage.removeItem("blacklink_dna_session");
+      sessionStorage.removeItem("blacklink_visited");
+    }
+
     const ctx = gsap.context(() => {
       gsap.fromTo(
         textRef.current,

@@ -15,6 +15,17 @@ export function SovereignPreloader() {
   const [isRendered, setIsRendered] = useState(true);
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const visited = sessionStorage.getItem("blacklink_visited");
+      if (visited === "true") {
+        setIsPreloaderDone(true);
+        setIsRendered(false);
+        setConsoleData({ title: "", description: "Um espaço de simplificação para sua operação." });
+        return;
+      }
+      sessionStorage.setItem("blacklink_visited", "true");
+    }
+
     // A mente (O Console) recebe os textos estritamente da matriz
     // Frame 0-2s: Frase 1 | Frame 2-4s: Frase 2 | Frame 4s: Fade out
     const ctx = gsap.context(() => {

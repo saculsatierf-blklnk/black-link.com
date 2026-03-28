@@ -137,8 +137,8 @@ export default function Protocolos() {
                     <span className="text-[8px] uppercase tracking-[0.4em] text-[var(--color-accent)] font-bold">
                       {categoria}
                     </span>
-                    <span className="text-[9px] text-[var(--text-muted)] tracking-widest opacity-100 md:opacity-0 transition-opacity duration-300 md:group-hover:opacity-100 flex items-center justify-center gap-1">
-                      CLIQUEM <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    <span className="text-[9px] text-[var(--text-muted)] tracking-widest opacity-100 md:opacity-0 transition-opacity duration-300 md:group-hover:opacity-100 flex items-center justify-center gap-1 uppercase">
+                      CLIQUE <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </span>
                   </div>
                   
