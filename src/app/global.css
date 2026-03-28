@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* --- 0. ANTI-FOUC SOVEREIGN PRELOADER (A primeira coisa lida pelo navegador) --- */
+html, body {
+  background-color: #030303 !important;
+}
+
 /* --- 1. BLACK LINK DESIGN SYSTEM (PH7 INTEGRATION) --- */
 @theme {
   /* --- PALETA DE CORES (Tailwind v4 gera classes automáticas) --- */

@@ -1,27 +1,63 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useSovereign } from "@/components/providers/sovereign-provider";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 // --- COMPONENTES DO ECOSSISTEMA ---
 import dynamic from "next/dynamic";
 
-const Manifesto = dynamic(() => import("@/components/sections/manifesto").then(m => m.Manifesto), { ssr: false });
-const SelectedWorks = dynamic(() => import("@/components/sections/selected-works").then(m => m.SelectedWorks), { ssr: false });
-const Footer = dynamic(() => import("@/components/sections/footer").then(m => m.Footer), { ssr: false });
+const SkeletonLoader = () => (
+  <div className="w-full h-[60vh] md:h-[80vh] bg-gradient-to-r from-zinc-900 via-zinc-800 to-zinc-900 animate-pulse my-12 md:my-24"></div>
+);
+
+const Manifesto = dynamic(() => import("@/components/sections/manifesto").then(m => m.Manifesto), { 
+  ssr: false,
+  loading: () => <SkeletonLoader />
+});
+
+const SelectedWorks = dynamic(() => import("@/components/sections/selected-works").then(m => m.SelectedWorks), { 
+  ssr: false,
+  loading: () => <SkeletonLoader />
+});
+
+const Footer = dynamic(() => import("@/components/sections/footer").then(m => m.Footer), { 
+  ssr: false,
+  loading: () => <SkeletonLoader />
+});
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const pillarsRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+  const { setConsoleData, isPreloaderDone } = useSovereign();
 
-
+  useEffect(() => {
+    if (!isPreloaderDone) return;
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: heroRef.current,
+        start: "top top",
+        end: "bottom 50%",
+        onEnter: () => setConsoleData({ title: "", description: "Simplificamos sua tecnologia para você focar apenas no que faz de melhor." }),
+        onEnterBack: () => setConsoleData({ title: "", description: "Simplificamos sua tecnologia para você focar apenas no que faz de melhor." }),
+      });
+    }, heroRef);
+    return () => ctx.revert();
+  }, [setConsoleData, isPreloaderDone]);
 
   return (
     <div ref={containerRef} className="w-full overflow-hidden max-w-[1440px] mx-auto">
 
       {/* --- SEÇÃO 1: HERO / FLAGSHIP --- */}
-      <section className="relative flex flex-col items-center justify-center h-screen w-full z-10 px-[clamp(1rem,5vw,6rem)]">
+      <section ref={heroRef} className="relative flex flex-col items-center justify-center h-screen w-full z-10 px-[clamp(1rem,5vw,6rem)]">
 
         {/* Camada de Conteúdo Principal */}
         <div className="relative z-20 text-center mix-blend-difference flex flex-col items-center">

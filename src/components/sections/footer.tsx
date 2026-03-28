@@ -2,12 +2,35 @@
 
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
+import { useSovereign } from "@/components/providers/sovereign-provider";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export function Footer() {
+  const footerRef = useRef<HTMLElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   const currentYear = new Date().getFullYear();
+  const { setConsoleData, isPreloaderDone } = useSovereign();
+
+  // --- SINCRONIA DO CONSOLE ---
+  useEffect(() => {
+    if (!isPreloaderDone) return; // Repouso obrigatório
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: footerRef.current,
+        start: "top 80%",
+        end: "bottom bottom",
+        onEnter: () => setConsoleData({ title: "", description: "O ruído termina aqui. Assuma o comando." }),
+        onEnterBack: () => setConsoleData({ title: "", description: "O ruído termina aqui. Assuma o comando." }),
+      });
+    }, footerRef);
+    return () => ctx.revert();
+  }, [setConsoleData, isPreloaderDone]);
 
   // --- FÍSICA DO BOTÃO MAGNÉTICO (Restaurada) ---
   useEffect(() => {
@@ -59,7 +82,7 @@ export function Footer() {
   }, []);
 
   return (
-    <footer className="w-full bg-black pt-32 pb-12 px-6 md:px-24 border-t border-white/10 flex flex-col justify-between overflow-hidden">
+    <footer ref={footerRef} className="w-full bg-black pt-32 pb-12 px-6 md:px-24 border-t border-white/10 flex flex-col justify-between overflow-hidden">
       
       {/* 1. CHAMADA PRINCIPAL COM BOTÃO MAGNÉTICO */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-32 gap-12">
@@ -70,7 +93,7 @@ export function Footer() {
             A excelência não<br/>espera pela sorte.
           </h2>
           <p className="text-xl text-zinc-400 font-light">
-            Dê ao seu projeto uma base forte. Entre na sala, assuma o comando.
+            Sua infraestrutura. Sua soberania. Assuma o comando sem ruídos.
           </p>
         </div>
 

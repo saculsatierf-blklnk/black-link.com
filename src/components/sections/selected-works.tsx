@@ -1,129 +1,164 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useSovereign } from "@/components/providers/sovereign-provider";
 
-const pillars = [
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+type Pillar = {
+  id: string;
+  title: string;
+  headline: string;
+  image: string;
+  whatsappMsg: string;
+  caseName: string;
+  caseLink: string;
+};
+
+const pillars: Pillar[] = [
   {
     id: "01",
-    slug: "branding-design",
-    title: "Branding & Design Estratégico",
-    headline: "O ROSTO DO SEU IMPÉRIO.",
-    description: "Unimos Identidade Visual de elite a criativos de alto impacto e copywriting estratégico. Não apenas vestimos sua marca; ditamos o valor dela no mercado através de uma narrativa visual proprietária.",
-    proofs: [
-      { label: "David HBS Viagens", url: "https://davidhbsviagens.com/" },
-      { label: "DIINC SP", url: "https://diinc.com.br/" },
-      { label: "Gofer Metais", url: "https://www.instagram.com/gofer_metais/" }
-    ],
+    title: "BRANDING & DESIGN",
+    headline: "Sua Identidade como Ativo de Valor.",
     image: "/assets/works/branding.webp",
-    whatsappMsg: "Olá, tenho interesse em Branding e Design de Autoridade."
+    whatsappMsg: "Olá, tenho interesse em Branding.",
+    caseName: "Case: Diinc Incorporadora",
+    caseLink: "https://www.instagram.com/diinc_sp"
   },
   {
     id: "02",
-    slug: "trafego-performance",
-    title: "Tráfego Pago & Performance",
-    headline: "MATEMÁTICA APLICADA AO LUCRO.",
-    description: "Gerenciamos campanhas de Google e Meta Ads com infraestrutura de dados e rastreamento avançado (Server-Side). Transformamos investimento em escala de faturamento previsível e auditável.",
-    proofs: [
-      { label: "Gofer Metais", url: "https://gofermetais.com.br/" },
-      // Nova prova requisitada pelo time de UX
-      { label: "DIINC SP", url: "https://www.instagram.com/diinc_sp" }
-    ],
+    title: "TRÁFEGO & PERFORMANCE",
+    headline: "Sua Escala sob Controle Matemático.",
     image: "/assets/works/trafego.webp",
-    whatsappMsg: "Olá, gostaria de falar sobre Gestão de Tráfego e Performance."
+    whatsappMsg: "Olá, gostaria de falar sobre Gestão de Tráfego.",
+    caseName: "Case: Gofer Metais",
+    caseLink: "https://www.instagram.com/gofer_metais"
   },
   {
     id: "03",
-    slug: "software-dev",
-    title: "Desenvolvimento Web & Softwares",
-    headline: "A ENGENHARIA DA LIBERDADE.",
-    description: "Desenvolvemos ecossistemas web, aplicativos Android/iOS e automações de processo. Entregamos código escalável e arquitetura robusta para que sua operação rode 24/7 à prova de falhas.",
-    proofs: [
-      { label: "Gofer Metais", url: "https://gofermetais.com.br/" },
-      { label: "DIINC SP", url: "https://diinc.com.br/" }
-    ],
+    title: "DESENVOLVIMENTO WEB",
+    headline: "Sua Operação Livre de Ruído Técnico.",
     image: "/assets/works/software.webp",
-    whatsappMsg: "Olá, preciso desenvolver um Software, App ou Automação."
+    whatsappMsg: "Olá, preciso desenvolver um Software.",
+    caseName: "Case: David HBS",
+    caseLink: "https://davidhbsviagens.com/"
   }
 ];
 
 export function SelectedWorks() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { setConsoleData, isPreloaderDone } = useSovereign();
+
+  const resetConsole = () => {
+    if (isPreloaderDone) {
+      setConsoleData({
+        title: "",
+        description: "Estes são os resultados de quem confiou na nossa execução."
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (!isPreloaderDone) return;
+    const ctx = gsap.context(() => {
+      // General Section Trigger
+      ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: "top 60%",
+        end: "bottom 40%",
+        onEnter: resetConsole,
+        onEnterBack: resetConsole,
+      });
+
+      // Mobile Specific ScrollTriggers (On Desktop we use hover)
+      const isMobile = window.innerWidth <= 768;
+      if (isMobile) {
+        pillars.forEach((pillar, index) => {
+          ScrollTrigger.create({
+            trigger: `#pillar-grid-${index}`,
+            start: "top 50%",
+            end: "bottom 50%",
+            onEnter: () => setConsoleData({
+              title: "",
+              description: pillar.headline,
+              link: `https://wa.me/5511978291846?text=${encodeURIComponent(pillar.whatsappMsg)}`
+            }),
+            onEnterBack: () => setConsoleData({
+              title: "",
+              description: pillar.headline,
+              link: `https://wa.me/5511978291846?text=${encodeURIComponent(pillar.whatsappMsg)}`
+            })
+          });
+        });
+      }
+    }, containerRef);
+    return () => ctx.revert();
+  }, [setConsoleData, isPreloaderDone]);
+
   return (
-    <section className="relative w-full bg-black h-auto z-50">
-
-
-      {/* Container Principal - Fluxo normal de blocos */}
-      <div className="relative w-full flex flex-col gap-16 md:gap-24 pb-24 md:pb-32 -mt-8 md:-mt-12">
-        {pillars.map((pillar, index) => (
-          <div
-            key={pillar.id}
-            className="relative w-full h-auto flex items-center justify-center px-4 md:px-12"
-          >
-            {/* CARD CONTAINER */}
-            <div className="relative w-full h-auto md:min-h-[85vh] border border-white/10 overflow-hidden shadow-2xl group bg-black md:bg-[#0a0a0a] transform-gpu will-change-transform">
-
-              {/* CAMADA 1: IMAGEM BACKGROUND */}
-              <div className="absolute inset-0 z-0 w-full h-full bg-black">
-                  <Image
-                    src={pillar.image}
-                    alt={pillar.title}
-                    fill
-                    sizes="100vw"
-                    className="object-cover opacity-40 md:opacity-60 md:group-hover:opacity-80 md:group-hover:scale-105 transition-all duration-700 ease-out md:grayscale md:group-hover:grayscale-0"
-                    priority={index === 0}
-                    loading={index === 0 ? undefined : "lazy"}
-                    placeholder="blur"
-                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
-                  />
-                {/* GRADIENTE ESTRATÉGICO */}
-                <div className="hidden md:block absolute inset-0 to-transparent opacity-100 bg-gradient-to-r from-black via-black/90" />
-              </div>
-
-              {/* CAMADA 2: CONTEÚDO */}
-              <div className="relative z-10 w-full md:w-[65%] h-full p-8 md:p-16 flex flex-col justify-center gap-12 md:gap-16">
+    <section ref={containerRef} className="relative w-full bg-[#000] z-10 flex flex-col items-center pb-32">
+      
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 pt-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          {pillars.map((pillar, index) => (
+            <div 
+              id={`pillar-grid-${index}`} 
+              key={pillar.id} 
+              className="relative w-full h-[60vh] md:h-[65vh] rounded-[2rem] overflow-hidden shadow-2xl group border border-white/5 bg-[#0a0a0a]"
+              onMouseEnter={() => window.innerWidth > 768 && isPreloaderDone && setConsoleData({
+                title: "",
+                description: pillar.headline,
+                link: `https://wa.me/5511978291846?text=${encodeURIComponent(pillar.whatsappMsg)}`
+              })}
+              onMouseLeave={() => window.innerWidth > 768 && isPreloaderDone && resetConsole()}
+            >
+              <Image
+                src={pillar.image}
+                alt={pillar.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover opacity-60 md:grayscale md:group-hover:grayscale-0 transition-all duration-[1.5s] ease-out will-change-transform transform-gpu md:group-hover:scale-105 pointer-events-none"
+                priority={index === 0}
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#000]/90 via-[#000]/10 to-transparent pointer-events-none mix-blend-multiply" />
+              
+              <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col items-center justify-end p-8 transition-all duration-300 h-1/2">
+                <h2 
+                  className="font-serif text-white pointer-events-none mb-3 text-center tabular-nums text-balance w-full"
+                  style={{
+                    fontSize: "clamp(1.2rem, 3.5vw, 2rem)",
+                    lineHeight: "1.1",
+                    letterSpacing: "-0.04em",
+                    fontVariantNumeric: "tabular-nums"
+                  }}
+                >
+                  {pillar.title}
+                </h2>
                 
-                {/* Texto Superior */}
-                <div>
-                  <span className="font-sans text-xs text-zinc-400 uppercase tracking-widest mb-6 block border-l-2 border-white pl-4 font-bold">
-                    {pillar.title}
-                  </span>
-                  <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white mb-8 leading-[0.9] drop-shadow-lg">
-                    {pillar.headline}
-                  </h2>
-                  <p className="font-sans text-lg text-zinc-300 font-light leading-relaxed max-w-xl drop-shadow-md">
-                    {pillar.description}
-                  </p>
+                <div className="flex flex-col gap-2 items-center">
+                  <a 
+                    href={pillar.caseLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="font-sans text-[11px] font-bold tracking-widest text-[#E0E0E0] hover:text-white transition-colors pointer-events-auto flex items-center gap-2"
+                  >
+                    → {pillar.caseName}
+                  </a>
                 </div>
-
-                {/* Footer do Card */}
-                <div className="flex flex-col gap-8 md:gap-12">
-                  <div className="flex flex-col gap-3">
-                    <span className="font-sans text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Cases & Ecossistema</span>
-                    {pillar.proofs.map((proof, i) => (
-                      <a key={i} href={proof.url} target="_blank" rel="noopener noreferrer" className="text-sm font-sans font-bold text-white hover:text-zinc-300 transition-colors flex items-center gap-2 w-fit pointer-events-auto">
-                        → {proof.label}
-                      </a>
-                    ))}
-                  </div>
-
-                  <div className="pt-8 border-t border-white/20 w-full md:w-max">
-                    <a
-                      href={`https://wa.me/5511978291846?text=${encodeURIComponent(pillar.whatsappMsg)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block px-8 py-4 bg-white text-black font-sans text-xs uppercase tracking-widest font-bold hover:bg-zinc-200 transition-all cursor-pointer shadow-lg hover:shadow-white/20 pointer-events-auto"
-                    >
-                      VER MAIS
-                    </a>
-                  </div>
-                </div>
-
               </div>
-
-
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
+
     </section>
   );
 }

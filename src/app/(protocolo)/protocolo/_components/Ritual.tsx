@@ -72,6 +72,7 @@ export default function Ritual() {
     }
 
     document.body.style.overflow = 'auto';
+    window.scrollTo(0, 0);
 
     if (!containerRef.current) {
       unlockSite();
@@ -83,7 +84,9 @@ export default function Ritual() {
       scale: 1.1,
       duration: 0.8,
       ease: "power2.inOut",
-      onComplete: () => unlockSite()
+      onComplete: () => {
+        unlockSite();
+      }
     });
   };
 
@@ -204,12 +207,12 @@ export default function Ritual() {
                   <div className="flex flex-col gap-4">
                     <h3 className="mb-2 text-[10px] uppercase tracking-[0.3em] text-[var(--color-accent)] transition-colors">Conjuntos de Poder (Identidade)</h3>
                     {[
-                      { id: 'dominio', nome: '01. Domínio', desc: 'Extenda & Inter', psic: 'Vanguarda e Tecnologia.', cssHeading: '"Oswald", sans-serif', cssBody: '"Inter", sans-serif' },
-                      { id: 'heranca', nome: '02. Herança', desc: 'Fortune Daily & Montserrat', psic: 'Tradição e Peso Bancário.', cssHeading: '"DM Serif Display", serif', cssBody: '"Montserrat", sans-serif' },
-                      { id: 'precisao', nome: '03. Precisão', desc: 'Comparison & Open Sans', psic: 'Rigor Cirúrgico e Elite.', cssHeading: '"Playfair Display", serif', cssBody: '"Open Sans", sans-serif' },
-                      { id: 'ruptura', nome: '04. Ruptura', desc: 'Brigends & Geist', psic: 'Arte, Exclusividade e Design.', cssHeading: '"Bebas Neue", sans-serif', cssBody: '"Geist", sans-serif' },
-                      { id: 'soberania', nome: '05. Soberania', desc: 'Cormorant Garamond & Lato', psic: 'Luxo Clássico e Exclusividade.', cssHeading: '"Cormorant Garamond", serif', cssBody: '"Lato", sans-serif' },
-                      { id: 'vanguarda', nome: '06. Vanguarda', desc: 'Syne & Outfit', psic: 'Brutalismo High-End.', cssHeading: '"Syne", sans-serif', cssBody: '"Outfit", sans-serif' }
+                      { id: 'dominio', nome: '01. Domínio', desc: 'Extenda & Inter', psic: 'Vanguarda e Estabilidade.', cssHeading: '"Oswald", sans-serif', cssBody: '"Inter", sans-serif' },
+                      { id: 'heranca', nome: '02. Herança', desc: 'Fortune Daily & Montserrat', psic: 'Tradição e Presença Institucional.', cssHeading: '"DM Serif Display", serif', cssBody: '"Montserrat", sans-serif' },
+                      { id: 'precisao', nome: '03. Precisão', desc: 'Comparison & Open Sans', psic: 'Rigor Clínico Absoluto.', cssHeading: '"Playfair Display", serif', cssBody: '"Open Sans", sans-serif' },
+                      { id: 'ruptura', nome: '04. Ruptura', desc: 'Brigends & Geist', psic: 'Minimalismo e Presença Digital Pura.', cssHeading: '"Bebas Neue", sans-serif', cssBody: '"Geist", sans-serif' },
+                      { id: 'soberania', nome: '05. Soberania', desc: 'Cormorant Garamond & Lato', psic: 'Soberania e Visão de Resultado.', cssHeading: '"Cormorant Garamond", serif', cssBody: '"Lato", sans-serif' },
+                      { id: 'vanguarda', nome: '06. Vanguarda', desc: 'Syne & Outfit', psic: 'Funcionalismo Estrutural.', cssHeading: '"Syne", sans-serif', cssBody: '"Outfit", sans-serif' }
                     ].map((font) => (
                       <button key={font.id} onClick={() => setTypography(font.id)}
                         className={`group flex flex-col items-start rounded-none border px-6 py-4 text-left transition-all duration-300 ${typography === font.id ? 'border-[var(--color-accent)] bg-[var(--bg-surface)] shadow-sm' : 'border-[var(--text-muted)] bg-transparent hover:border-[var(--text-main)]'}`}>
@@ -264,7 +267,7 @@ export default function Ritual() {
                   </div>
 
                   <div className="flex flex-col gap-4">
-                    <h3 className="mb-2 text-[10px] uppercase tracking-[0.3em] text-[var(--color-accent)] transition-colors">Odontologia de Elite</h3>
+                    <h3 className="mb-2 text-[10px] uppercase tracking-[0.3em] text-[var(--color-accent)] transition-colors">Odontologia de Alta Complexidade</h3>
                     {listasOficiais.dental.map((protocolo) => {
                       const ativo = protocolosSeguros.includes(protocolo);
                       return (
@@ -280,7 +283,7 @@ export default function Ritual() {
                 <div className="mx-auto mt-4 flex w-full max-w-2xl border border-[var(--text-muted)] bg-transparent transition-colors focus-within:border-[var(--color-accent)]">
                   <input type="text" value={customInput} onChange={(e) => setCustomInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleAddCustom()}
                     className="w-full bg-transparent p-4 text-sm tracking-wide text-[var(--text-main)] focus:outline-none"
-                    placeholder="Outro Protocolo Exclusivo..." />
+                    placeholder="Outro Protocolo de Intervenção..." />
                   <button onClick={handleAddCustom} className="px-6 text-xs uppercase tracking-widest text-[var(--text-muted)] transition-colors hover:text-[var(--color-accent)]">
                     INCLUIR
                   </button>
@@ -289,7 +292,7 @@ export default function Ritual() {
 
               <div className="flex justify-center pt-8">
                 <button onClick={handleUnlock} className="rounded-none bg-[var(--text-main)] px-12 py-5 font-bold uppercase tracking-widest text-[var(--bg-base)] transition-all duration-300 hover:opacity-80 focus:outline-none">
-                  Liberar Acesso Exclusivo
+                  GERAR ESTRUTURA
                 </button>
               </div>
             </div>

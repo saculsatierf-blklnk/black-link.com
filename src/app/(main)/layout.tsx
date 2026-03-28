@@ -5,6 +5,10 @@ import LayoutClient from "@/components/ui/layout-client";
 
 // 2. INJEÇÃO DO PROVEDOR DE ESTADO
 import { EngineProvider } from "@/components/providers/engine-provider";
+import { SovereignProvider } from "@/components/providers/sovereign-provider";
+import { SovereignPreloader } from "@/components/ui/sovereign-preloader";
+import { NarrativeConsole } from "@/components/ui/narrative-console";
+import { Suspense } from "react";
 
 import "../global.css"; 
 
@@ -28,11 +32,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://blklnk.com"),
   title: {
     template: "%s | BLACK LINK",
-    default: "BLACK LINK | Ecossistema Digital - Portfólio de Elite",
+    default: "BLACK LINK | Engenharia da Ausência",
   },
-  description: "Arquitetura de performance extrema e design Noir. Criamos ecossistemas digitais de elite com fluidez absoluta, estética imersiva e tecnologia de vanguarda.",
+  description: "Criamos a infraestrutura que sua autoridade merece, elevando sua presença digital e maximizando os seus resultados.",
   keywords: ["Web Design", "GSAP", "React Three Fiber", "Performance", "Noir", "Black Link", "Ecossistema Digital"],
   robots: {
     index: true,
@@ -55,8 +60,8 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "BLACK LINK | Ecossistema Digital - Portfólio de Elite",
-    description: "Arquitetura de performance extrema e design Noir. Criamos ecossistemas digitais de elite com fluidez absoluta, estética imersiva e tecnologia de vanguarda.",
+    title: "BLACK LINK | Engenharia da Ausência",
+    description: "Criamos a infraestrutura que sua autoridade merece, elevando sua presença digital e maximizando os seus resultados.",
     type: "website",
     locale: "pt_BR",
     images: [
@@ -64,14 +69,14 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "BLACK LINK - Portfólio de Elite",
+        alt: "BLACK LINK",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BLACK LINK | Ecossistema Digital - Portfólio de Elite",
-    description: "Arquitetura de performance extrema e design Noir.",
+    title: "BLACK LINK | Engenharia da Ausência",
+    description: "Arquitetura restrita. Estabilizamos sua presença digital.",
     images: ["/og-image.jpg"],
   },
 };
@@ -85,14 +90,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${manrope.variable} ${cinzel.variable} ${geistMono.variable} font-sans antialiased bg-void text-platinum selection:bg-gold-dust selection:text-void overflow-x-hidden`}
+        className={`${manrope.variable} ${cinzel.variable} ${geistMono.variable} font-sans antialiased bg-[#030303] text-platinum selection:bg-gold-dust selection:text-void overflow-x-hidden`}
+        suppressHydrationWarning
       >
         {/* 3. ENVELOPAMENTO DA ÁRVORE DE RENDERIZAÇÃO */}
-        <EngineProvider>
-          <LayoutClient>
-              {children}
-          </LayoutClient>
-        </EngineProvider>
+        <SovereignProvider>
+          <Suspense fallback={null}>
+            <SovereignPreloader />
+          </Suspense>
+          <NarrativeConsole />
+          <EngineProvider>
+            <LayoutClient>
+                {children}
+            </LayoutClient>
+          </EngineProvider>
+        </SovereignProvider>
       </body>
     </html>
   );

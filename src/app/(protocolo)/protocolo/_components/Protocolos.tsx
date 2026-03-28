@@ -18,14 +18,13 @@ const baseProtocolos: Record<string, { foco: string, imagem: string, categoria: 
   "Toxina Botulínica": { foco: "Suavização Natural", imagem: "/assets/servicos/toxina.jpg", categoria: "Estética Facial" },
   "Rinomodelação": { foco: "Reestruturação Nasal", imagem: "/assets/servicos/rinomodelacao.jpg", categoria: "Estética Facial" },
   "Transplante Capilar": { foco: "Redensificação Folicular", imagem: "/assets/servicos/transplante-capilar.jpg", categoria: "Especialidades" },
-  
-  // Odontologia de Elite e Tecnologia
+  // Odontologia Tecnológica
   "Lentes de Porcelana": { foco: "Acabamento Mirror Effect", imagem: "/assets/servicos/lentes.jpg", categoria: "Odontologia" },
   "Implantes de Zircônia": { foco: "Tecnologia Metal-Free", imagem: "/assets/servicos/implantes.jpg", categoria: "Odontologia" },
   "Alinhadores Invisíveis": { foco: "Ortodontia Digital", imagem: "/assets/servicos/alinhadores.jpg", categoria: "Odontologia" }, 
   "Clareamento a Laser": { foco: "Fotobiomodulação", imagem: "/assets/servicos/clareamento.jpg", categoria: "Odontologia" }, 
   "Facetas em Resina": { foco: "Escultura Manual", imagem: "/assets/servicos/facetas-resina.jpg", categoria: "Odontologia" },
-  "Diagnóstico Digital": { foco: "Mapeamento 3D", imagem: "/assets/servicos/diagnostico-tech.jpg", categoria: "Tecnologia" }
+  "Arquitetura de Projeto": { foco: "Mapeamento 3D", imagem: "/assets/servicos/diagnostico-tech.jpg", categoria: "Tecnologia" }
 };
 
 export default function Protocolos() {
@@ -73,11 +72,11 @@ export default function Protocolos() {
         <div className="mb-10 flex w-full flex-col items-center justify-center text-center gap-4 border-b border-[var(--text-muted)]/20 pb-10">
           <span className="text-[9px] uppercase tracking-[0.4em] text-[var(--color-accent)] font-bold">Mapeamento de Serviços</span>
           <h2 className="font-serif text-3xl uppercase leading-[1.0] text-[var(--text-main)] md:text-5xl lg:text-5xl drop-shadow-md">
-            Arsenal de Elite:<br/>
+            Mapeamento Tático:<br/>
             <span className="text-[var(--text-muted)]">{clinicName || 'Sua Clínica'}</span>
           </h2>
           <p className="hidden md:flex max-w-lg mt-4 text-[10px] text-[var(--text-muted)] tracking-wider leading-relaxed">
-            * O design premium de portfólio eleva a percepção de valor dos serviços antes mesmo do seu preço ser revelado. É aqui que o desejo suplementa o valor.
+            * O design de infraestrutura eleva a percepção de valor dos serviços anulando a comparação. É aqui que a base da nossa parceria e dos seus resultados se consolida.
           </p>
         </div>
 

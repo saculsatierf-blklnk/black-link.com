@@ -25,6 +25,21 @@ const SERVICE_OPTIONS = [
 export default function ContactPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const contactRef = useRef<HTMLElement>(null);
+  const { setConsoleData } = useSovereign();
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: contactRef.current,
+        start: "top center",
+        end: "bottom bottom",
+        onEnter: () => setConsoleData({ title: "COMANDO", description: "O ruído termina aqui. Assuma o comando." }),
+        onEnterBack: () => setConsoleData({ title: "COMANDO", description: "O ruído termina aqui. Assuma o comando." }),
+      });
+    }, contactRef);
+    return () => ctx.revert();
+  }, [setConsoleData]);
   
   // Estado do Formulário
   const [formData, setFormData] = useState({
@@ -85,7 +100,7 @@ export default function ContactPage() {
       setStatus("success");
       setTimeout(() => {
         setStatus("idle");
-        router.push('/protocolo/obrigado');
+        router.push('/thank-you');
       }, 1000);
     }, 1000);
   };
@@ -109,7 +124,7 @@ export default function ContactPage() {
         </div>
         <div className="mt-8 md:mt-0 max-w-md">
           <p className="text-zinc-400 text-lg font-light leading-relaxed">
-            Branding, Tráfego ou Software. A infraestrutura de elite para escalar seu faturamento.
+            Branding, Tráfego ou Software. A infraestrutura digital de excelência para impulsionar a sua operação.
           </p>
         </div>
       </div>

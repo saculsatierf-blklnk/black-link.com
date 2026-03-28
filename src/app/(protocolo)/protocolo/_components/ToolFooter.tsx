@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
+import { useRouter } from 'next/navigation';
 import { useProject } from '../_context/ProjectContext';
 import { gerarDossiePdf } from '../_utils/gerarDossie';
 
@@ -9,6 +10,8 @@ export default function ToolFooter() {
   const botaoRef = useRef<HTMLButtonElement>(null);
   const textoBotaoRef = useRef<HTMLSpanElement>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [finalLink, setFinalLink] = useState<string | null>(null);
+  const router = useRouter();
   
   const projeto = useProject();
   const { contactNumber, instagram, ceoName, clinicName, expansionPillars } = projeto;
@@ -43,42 +46,37 @@ export default function ToolFooter() {
 
   const cleanInsta = instagram.replace(/[@/]/g, '').trim() || 'BLACKLINK.ELITE';
   const cleanNumber = contactNumber.replace(/\D/g, ''); 
+  const finalClientNumber = cleanNumber.startsWith('55') ? cleanNumber : (cleanNumber ? `55${cleanNumber}` : '');
 
   const linkInstagram = `https://instagram.com/${cleanInsta}`;
-  const linkWhatsApp = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(`Olá, ${ceoName || 'Doutor(a)'}! Gostaria de reservar um horário exclusivo para uma avaliação.`)}`;
+  const linkWhatsAppClient = `https://wa.me/${finalClientNumber}?text=${encodeURIComponent(`AUTORIDADE SEM RUÍDO. Requisitando configuração com ${ceoName || 'Doutor(a)'}.`)}`;
   
   const quantidadeModulos = (expansionPillars || []).length;
   const textoBotaoFinal = quantidadeModulos === 0 
     ? "LIBERAR APENAS PORTAL" 
     : `LIBERAR PORTAL + ${quantidadeModulos} EXPANS${quantidadeModulos > 1 ? 'ÕES' : 'ÃO'}`;
 
-  const baixarEAtivar = async () => {
+  const compelirDossie = async () => {
     if (isProcessing) return;
     setIsProcessing(true);
 
     try {
-      // Usamos o Gerador Nativo jsPDF de Alta Fidelidade (Magazine Layout) 
-      // para blindar contra bugs do Tailwind v4 (Oklab/Oklch crashers na DOM)
       const cloudUrl = await gerarDossiePdf(projeto);
       
       const nomeClinica = clinicName || 'clínica';
       const linkSeguro = cloudUrl ? cloudUrl : '[Link de Nuvem Indisponível - Documento Retido Localmente]';
       
-      const mensagemBlackLink = `Olá, Lucas!
-Finalizei a modelagem arquitetural para a ${nomeClinica.toUpperCase()}.
-
-📄 *MEU DOSSIÊ BLACK LINK*
-Acesse a base atual da nossa estratégia aqui:
-${linkSeguro}
-
-Gostaria de conversar melhor sobre o desenvolvimento dessa fundação e as potenciais melhorias dessa estrutura.`;
+      const mensagemBlackLink = `Olá, Lucas!\nFinalizei a modelagem arquitetural para a ${nomeClinica.toUpperCase()}.\n\n📄 *MEU DOSSIÊ BLACK LINK*\nAcesse a base atual da nossa estratégia aqui:\n${linkSeguro}\n\nGostaria de conversar melhor sobre o desenvolvimento dessa fundação.`;
       const linkAtivacao = `https://wa.me/5511978291846?text=${encodeURIComponent(mensagemBlackLink)}`;
 
-      // O Redirecionamento é acionado estritamente após a Promise resolver
-      window.open(linkAtivacao, '_blank');
+      // Libera o link real do WhatsApp (Safeguard Mobile)
+      setFinalLink(linkAtivacao);
       
     } catch (error) {
       console.error("Falha no processo de ativação:", error);
+      // Fallback em caso de erro no PDF para não reter o lead
+      const mensagemErro = `Olá, Lucas!\nTentei gerar o dossiê para ${clinicName || 'minha clínica'} mas ocorreu um bloqueio técnico. Gostaria de assistência manual.`;
+      setFinalLink(`https://wa.me/5511978291846?text=${encodeURIComponent(mensagemErro)}`);
     } finally {
       setIsProcessing(false);
     }
@@ -110,19 +108,37 @@ Gostaria de conversar melhor sobre o desenvolvimento dessa fundação e as poten
               <span className="text-[8px] md:text-[9px] uppercase tracking-widest text-[var(--text-main)] opacity-70">1 Base Core + {quantidadeModulos} Expansões Selecionadas</span>
             </div>
 
-            {/* Botão Magnético de Dossiê */}
-            <button 
-              onClick={baixarEAtivar}
-              disabled={isProcessing}
-              ref={botaoRef}
-              className={`group relative flex w-[90%] md:w-auto items-center justify-center overflow-hidden border border-[var(--color-accent)] bg-[var(--color-accent)]/5 px-6 py-5 md:px-16 md:py-7 transition-all duration-700 ease-out active:scale-95 focus:outline-none ${isProcessing ? 'opacity-50 cursor-wait' : 'md:hover:shadow-[0_0_50px_-5px_var(--color-accent)] md:hover:bg-[var(--color-accent)]/15 md:hover:scale-105'}`}
-            >
-              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-[var(--color-accent)]/30 to-transparent transition-transform duration-1000 group-hover:translate-x-full"></div>
-              
-              <span ref={textoBotaoRef} className={`relative z-10 text-[11px] md:text-[13px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] transition-all duration-500 ${isProcessing ? 'text-[var(--text-muted)]' : 'text-[var(--text-main)] group-hover:text-white group-hover:drop-shadow-[0_0_10px_var(--color-accent)]'}`}>
-                {isProcessing ? 'COMPILANDO DOSSIÊ...' : textoBotaoFinal}
-              </span>
-            </button>
+            {/* Switch de Contexto (Virtual -> Real Link via DOM) */}
+            {finalLink ? (
+              <a 
+                href={finalLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setTimeout(() => {
+                    router.push('/thank-you');
+                  }, 800);
+                }}
+                className={`group relative flex w-[90%] md:w-auto items-center justify-center overflow-hidden border border-[var(--color-accent)] bg-[var(--color-accent)]/15 shadow-[0_0_50px_-5px_var(--color-accent)] px-6 py-5 md:px-16 md:py-7 transition-all duration-700 ease-out active:scale-95 animate-in fade-in zoom-in-95`}
+              >
+                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-[var(--color-accent)]/30 to-transparent transition-transform duration-1000 group-hover:translate-x-full"></div>
+                <span className={`relative z-10 text-[11px] md:text-[13px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] transition-all duration-500 text-white drop-shadow-[0_0_10px_var(--color-accent)]`}>
+                  ACIONAR VIA WHATSAPP
+                </span>
+              </a>
+            ) : (
+              <button 
+                onClick={compelirDossie}
+                disabled={isProcessing}
+                ref={botaoRef}
+                className={`group relative flex w-[90%] md:w-auto items-center justify-center overflow-hidden border border-[var(--color-accent)] bg-[var(--color-accent)]/5 px-6 py-5 md:px-16 md:py-7 transition-all duration-700 ease-out active:scale-95 focus:outline-none ${isProcessing ? 'opacity-50 cursor-wait' : 'md:hover:shadow-[0_0_50px_-5px_var(--color-accent)] md:hover:bg-[var(--color-accent)]/15 md:hover:scale-105'}`}
+              >
+                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-[var(--color-accent)]/30 to-transparent transition-transform duration-1000 group-hover:translate-x-full"></div>
+                <span ref={textoBotaoRef} className={`relative z-10 text-[11px] md:text-[13px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] transition-all duration-500 ${isProcessing ? 'text-[var(--text-muted)]' : 'text-[var(--text-main)] group-hover:text-white group-hover:drop-shadow-[0_0_10px_var(--color-accent)]'}`}>
+                  {isProcessing ? 'COMPILANDO DOSSIÊ...' : textoBotaoFinal}
+                </span>
+              </button>
+            )}
         </div>
 
         {/* Rodapé Interno do Painel de Glass */}
@@ -138,8 +154,8 @@ Gostaria de conversar melhor sobre o desenvolvimento dessa fundação e as poten
             </a>
 
             <a 
-              href={cleanNumber ? linkWhatsApp : '#'}
-              target={cleanNumber ? "_blank" : "_self"}
+              href={finalClientNumber ? linkWhatsAppClient : '#'}
+              target={finalClientNumber ? "_blank" : "_self"}
               rel="noopener noreferrer"
               className="text-[8px] md:text-[9px] uppercase tracking-[0.3em] text-[var(--text-muted)] transition-all active:scale-95 active:text-[var(--color-accent)] md:hover:text-[var(--color-accent)]"
             >

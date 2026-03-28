@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
+import { useSovereign } from "@/components/providers/sovereign-provider";
 
 interface NavbarProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ export function Navbar({ isOpen, setIsOpen }: NavbarProps) {
   const [montado, setMontado] = useState(false);
   const [artistasAberto, setArtistasAberto] = useState(false);
   const [spoilersAberto, setSpoilersAberto] = useState(false);
+  const { idName, isPreloaderDone } = useSovereign();
   
   const menuPanelRef = useRef<HTMLDivElement>(null);
   const ecossistemaRef = useRef<HTMLDivElement>(null);
@@ -75,11 +77,20 @@ export function Navbar({ isOpen, setIsOpen }: NavbarProps) {
   return (
     <>
       <nav className="fixed top-0 left-0 w-full z-[990] px-6 py-6 md:px-12 md:py-8 flex justify-between items-center text-white pointer-events-none">
-        <Link href="/" className="pointer-events-auto">
-          <span className="font-sans text-xl md:text-2xl font-medium tracking-tight hover:opacity-70 transition-opacity">
-            BLACK LINK
-          </span>
-        </Link>
+        <div className="flex items-center gap-6">
+          <Link href="/" className="pointer-events-auto">
+            <span className="font-sans text-xl md:text-2xl font-medium tracking-tight hover:opacity-70 transition-opacity">
+              BLACK LINK
+            </span>
+          </Link>
+          {isPreloaderDone && idName && (
+            <div className="pointer-events-auto hidden md:flex items-center px-4 py-1.5 border border-[#E5E5E5]/20 rounded-full backdrop-blur-md bg-white/[0.02]">
+              <span className="font-sans text-[10px] tracking-[0.3em] text-[#E5E5E5]/70 uppercase">
+                ID: {idName}
+              </span>
+            </div>
+          )}
+        </div>
         <button onClick={alternarMenu} className="pointer-events-auto flex flex-col gap-[6px] p-2 hover:opacity-80 transition-opacity z-[999] relative">
           <span className={`w-6 md:w-8 h-[2px] bg-white block transition-all duration-500 ease-out ${isOpen ? "rotate-45 translate-y-[8px]" : ""}`} />
           <span className={`w-6 md:w-8 h-[2px] bg-white block transition-all duration-500 ease-out ${isOpen ? "opacity-0 translate-x-4" : ""}`} />
@@ -138,7 +149,7 @@ export function Navbar({ isOpen, setIsOpen }: NavbarProps) {
               
               <div ref={spoilersRef} className="overflow-hidden h-0 flex flex-col gap-4 pl-4 border-l border-white/10 mt-4">
                 <div className="flex flex-col gap-2 sub-item">
-                  <SubLink href="/protocolo" rotulo="Estética Avançada" aoClicar={alternarMenu} />
+                  <SubLink href="/protocolo" rotulo="Estética avançada" aoClicar={alternarMenu} />
                 </div>
               </div>
             </div>

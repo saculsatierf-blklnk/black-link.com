@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 import { useProject } from '../_context/ProjectContext';
 
 const baseProtocolos: Record<string, { imagem: string, copy: string }> = {
-  "Harmonização Orofacial": { imagem: "/assets/servicos/harmonizacao.jpg", copy: "Arquitetura facial de elite. Proporções matemáticas para um rosto de impacto e sofisticação." },
+  "Harmonização Orofacial": { imagem: "/assets/servicos/harmonizacao.jpg", copy: "Estabilidade estrutural da face. Proporções matemáticas para um rosto de impacto e sofisticação." },
   "Bioestimuladores": { imagem: "/assets/servicos/bioestimuladores.jpg", copy: "Redensificação dérmica avançada. O retorno do colágeno para uma sustentação impecável." },
   "Ultraformer III": { imagem: "/assets/servicos/ultraformer.jpg", copy: "Lifting não cirúrgico de alta precisão. Ancoragem muscular com tecnologia micro e macrofocada." },
   "Glass Skin": { imagem: "/assets/servicos/glass-skin.jpg", copy: "Textura de porcelana. Refinamento de poros e luminosidade absoluta para uma pele inconfundível." },
@@ -16,8 +16,8 @@ const baseProtocolos: Record<string, { imagem: string, copy: string }> = {
   "Implantes de Zircônia": { imagem: "/assets/servicos/implantes.jpg", copy: "A evolução metal-free. Integração óssea perfeita com estética gengival irretocável." },
   "Alinhadores Invisíveis": { imagem: "/assets/servicos/alinhadores.jpg", copy: "Ortodontia digital de alta performance. Movimentação milimétrica com invisibilidade total." },
   "Clareamento a Laser": { imagem: "/assets/servicos/clareamento.jpg", copy: "Fotobiomodulação estética. Brancura em níveis máximos com proteção estrutural do esmalte." },
-  "Facetas em Resina": { imagem: "/assets/servicos/facetas-resina.jpg", copy: "Escultura manual de elite. Remodelagem imediata com polimento de alto brilho." },
-  "Diagnóstico Digital": { imagem: "/assets/servicos/diagnostico-tech.jpg", copy: "Mapeamento 3D absoluto. Previsibilidade cirúrgica e planejamento milimétrico de cada detalhe." }
+  "Facetas em Resina": { imagem: "/assets/servicos/facetas-resina.jpg", copy: "Mapeamento anatômico de precisão. Remodelagem imediata com polimento de alto brilho." },
+  "Arquitetura de Projeto": { imagem: "/assets/servicos/diagnostico-tech.jpg", copy: "Mapeamento 3D absoluto. Previsibilidade cirúrgica e planejamento milimétrico de cada detalhe." }
 };
 
 export const DossierTemplate = forwardRef<HTMLDivElement, {}>((props, ref) => {
@@ -61,7 +61,7 @@ export const DossierTemplate = forwardRef<HTMLDivElement, {}>((props, ref) => {
             
             <h2 className="mb-4 text-xl font-bold uppercase tracking-widest text-[var(--text-main)]">
               EXCLUSIVO PARA:<br/>
-              <span className="text-2xl mt-3 block text-[var(--text-muted)]">{clinicName || "CLÍNICA ELITE"}</span>
+              <span className="text-2xl mt-3 block text-[var(--text-muted)]">{clinicName || "OPERAÇÃO CLÍNICA"}</span>
             </h2>
             <p className="text-xs uppercase tracking-widest text-[var(--text-muted)] mt-4">
               DIREÇÃO CLÍNICA: {ceoName || "DR(A)."}

@@ -43,6 +43,10 @@ function ToolContent() {
 
     document.body.style.overflow = 'auto';
     document.body.style.height = 'auto';
+    
+    // Reset Absoluto (Obrigatório)
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    document.documentElement.scrollTop = 0; // Fallback hard reset
 
     if (!conteudoRef.current) return;
 
@@ -113,7 +117,7 @@ function ToolContent() {
                <span className="text-[9px] md:text-[10px] uppercase tracking-[0.4em] text-[var(--text-main)] opacity-80">Primeira Impressão</span>
             </div>
             <p className="text-[10px] md:text-[13px] text-[var(--text-muted)] tracking-wider leading-relaxed line-clamp-3 md:line-clamp-none">
-              Aqui a percepção de valor é imediata. Nos primeiros 3 segundos, o paciente não lê, ele sente. A tipografia <strong className="text-[var(--text-main)]">{typography.toUpperCase()}</strong> e a cor <strong className="text-[var(--text-main)]">{theme}</strong> blindam seu posicionamento.
+              Sua percepção de valor é imposta imediatamente. Nos primeiros 3 segundos, o seu paciente não lê; ele sente e se rende à sua autoridade. A tipografia <strong className="text-[var(--text-main)]">{typography.toUpperCase()}</strong> e a cor <strong className="text-[var(--text-main)]">{theme}</strong> blindam seu posicionamento.
             </p>
           </div>
 
@@ -151,9 +155,9 @@ function ToolContent() {
             
             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
               {[
-                { id: 'Fluxo de Elite', nome: 'Fluxo de Pacientes High-End', desc: 'Tráfego Pago & Captação Ativa', dor: 'Tenho estrutura, mas sofro com falta de volume de pacientes dispostos a pagar meu ticket justo.' },
-                { id: 'Identidade Absoluta', nome: 'O Peso da Sua Marca', desc: 'Branding & Design System Global', dor: 'Sinto que meu serviço é premium, mas minha imagem atual não transmite esse mesmo valor.' },
-                { id: 'Narrativa de Autoridade', nome: 'Autoridade Incontestável', desc: 'Gestão Cirúrgica do Instagram', dor: 'Não tenho tempo para criar conteúdo ou não consigo traduzir minha técnica complexa para a conversão.' }
+                { id: 'Fluxo de Elite', nome: 'Fluxo de Pacientes Estabilizado', desc: 'Tráfego Pago & Captação Ativa', dor: 'Tenho a estrutura, mas sofro quando vejo cadeiras vazias sabendo da minha excelência clínica.' },
+                { id: 'Identidade Absoluta', nome: 'O Peso da Sua Marca', desc: 'Branding & Design System Global', dor: 'Sinto que o meu serviço é superior, mas sei que uma construção estratégica elevaria o resultado.' },
+                { id: 'Narrativa de Autoridade', nome: 'Autoridade Incontestável', desc: 'Gestão Cirúrgica do Instagram', dor: 'Preciso que você remova de mim o peso de traduzir a minha técnica complexa em conversão silenciosa.' }
               ].map((modulo) => {
                 const ativo = expansionPillars.includes(modulo.id);
                 return (

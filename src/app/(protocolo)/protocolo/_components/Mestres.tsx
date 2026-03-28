@@ -89,10 +89,10 @@ export default function Mestres() {
           
           <div className="texto-mestre space-y-5 md:space-y-8 text-xs md:text-lg font-light leading-relaxed text-[var(--text-main)] md:text-[var(--text-muted)] drop-shadow-md md:drop-shadow-none text-center">
             <p>
-              "Aqui, {nomeExibicao}, é onde sua história encontra a tecnologia. Este espaço foi reservado para narrar sua trajetória e os pilares que sustentam sua marca."
+              "Aqui, {nomeExibicao}, é onde sua história encontra a engenharia da ausência. Este espaço foi reservado para narrar sua trajetória estabilizando percepções."
             </p>
             <p>
-              "Uma seção 'Sobre' de elite não é biográfica; é o seu maior ativo de conversão."
+              "Um perfil que não grita, apenas estabelece o seu lugar de forma inquestionável."
             </p>
           </div>
 
